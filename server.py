@@ -11,6 +11,7 @@ dirname = os.path.dirname(__file__)
 def hello():
     return render_template("index.html")
 
+
 @app.route("/list")
 def list():
     with open(f"{dirname}/sample_data/question.csv") as q:
