@@ -6,5 +6,12 @@
 </head>
 <body>
     <p>You can read all the questions here :)</p>
+    <ol>
+
+        {% for item in questions %}
+            <li> {{ item }} </li>
+        {% endfor %}
+
+    </ol>
 </body>
 </html>
