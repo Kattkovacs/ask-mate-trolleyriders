@@ -27,12 +27,12 @@
         {% for item in questions %}
         <tr>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('id') }}</a></td>
-            <td>{{ item.get('submission_time') }}</td>
-            <td>{{ item.get('view_number') }}</td>
-            <td>{{ item.get('vote_number') }}</td>
-            <td>{{ item.get('title') }}</td>
-            <td>{{ item.get('message') }}</td>
-            <td>{{ item.get('image') }}</td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('submission_time') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('view_number') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('vote_number') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('title') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
         </tr>
         {% endfor %}
         </tbody>
