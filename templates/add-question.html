@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Add question form</title>
+    </head>
+
+    <body>
+        <h1>Add question form</h1>
+        <form action="/add-question" method="post">
+            <label for="add-input">Title:</label><br>
+            <textarea id="add-input" name="add" rows="4" cols="40"></textarea>
+        </form>
+        <form action="/add-question" method="post">
+            <label for="add-input">Message:</label><br>
+            <textarea id="add-input" name="add" rows="4" cols="40"></textarea><br>
+            <button type="submit"><a href="/question/<question_id>">Submit<a></button>
+        </form>
+    </body>
+
+</html>

@@ -39,6 +39,17 @@ def question(question_id):
             answ.append(item)
     return render_template("question.html", quest=quest, answ=answ)
 
+@app.route("/add-question", methods=['GET', 'POST'])
+def add_form():
+    '''if request.method == 'POST':
+        # we save the new note we got from the POST values
+        saved_data['add'] = request.form['add']
+        # we update how many times it has been edited
+        saved_data['edit_count'] = saved_data.get('edit_count', 0) + 1
+
+        # redirect to the home page which will show the saved note
+        return redirect('/list')'''
+    return render_template("add-question.html")
 
 if __name__ == "__main__":
     app.run()
