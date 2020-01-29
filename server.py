@@ -14,25 +14,21 @@ def hello():
 def list():
     questions = connection.csv_to_list_of_dict("question.csv")
     questions = data_manager.decode_timestamp(questions)
+
     return render_template("list.html", questions=questions)
 
 
 @app.route("/question/<question_id>")
 def question(question_id):
     questions = connection.csv_to_list_of_dict("question.csv")
-    quest =  []
     questions = data_manager.decode_timestamp(questions)
-    for item in questions:
-        if item['id'] == question_id:
-            quest.append(item)
+    questions = data_manager.filter_by_question_id(questions, question_id)
 
     answers = connection.csv_to_list_of_dict("answer.csv")
-    answ = []
     answers = data_manager.decode_timestamp(answers)
-    for item in answers:
-        if item['question_id'] == question_id:
-            answ.append(item)
-    return render_template("question.html", quest=quest, answ=answ)
+    answers = data_manager.filter_by_question_id(answers, question_id, 'question_id')
+
+    return render_template("question.html", questions=questions, answers=answers)
 
 @app.route("/add-question", methods=['GET', 'POST'])
 def add_form():
