@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request
-import csv
-import os
+import connection
 import data_manager
 
 app = Flask(__name__)
-dirname = os.path.dirname(__file__)
 
 
 @app.route("/")
@@ -14,24 +12,21 @@ def hello():
 
 @app.route("/list")
 def list():
-    with open(f"{dirname}/sample_data/question.csv") as q:
-        questions = [{k: v for k, v in row.items()} for row in csv.DictReader(q, skipinitialspace=True)]
+    questions = connection.csv_to_list_of_dict("question.csv")
     questions = data_manager.decode_timestamp(questions)
     return render_template("list.html", questions=questions)
 
 
 @app.route("/question/<question_id>")
 def question(question_id):
-    with open(f"{dirname}/sample_data/question.csv") as q:
-        questions = [{kq: vq for kq, vq in rowq.items()} for rowq in csv.DictReader(q, skipinitialspace=True)]
+    questions = connection.csv_to_list_of_dict("question.csv")
     quest =  []
     questions = data_manager.decode_timestamp(questions)
     for item in questions:
         if item['id'] == question_id:
             quest.append(item)
 
-    with open(f"{dirname}/sample_data/answer.csv") as a:
-        answers = [{ka: va for ka, va in rowa.items()} for rowa in csv.DictReader(a, skipinitialspace=True)]
+    answers = connection.csv_to_list_of_dict("answer.csv")
     answ = []
     answers = data_manager.decode_timestamp(answers)
     for item in answers:
