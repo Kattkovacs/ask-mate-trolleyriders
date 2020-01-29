@@ -12,3 +12,15 @@ def filter_by_question_id(list, question_id, id='id'):
             filtered.append(item)
     return filtered
 
+
+def generate_answer(leng, question_id, message):
+    answer = {}
+    answer['id'] = leng + 1
+    answer['submission_time'] = int(round(datetime.timestamp(datetime.now())))
+    answer['vote_number'] = 0
+    answer['question_id'] = question_id
+    answer['message'] = message
+    answer['image'] = None
+
+    return answer
+

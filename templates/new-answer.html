@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Question</title>
+    <title>New Answer</title>
     <style>
     table, th, td {
         border: 1px solid black;
@@ -62,7 +62,11 @@
         {% endfor %}
         </tbody>
     </table><br>
-<a href="/question/{{ questions[0].get('id') }}/new-answer">New Answer</a><br>
+    <form action="/question/{{ questions[0].get('id') }}/new-answer" method="post">
+    <p>Answer:</p>
+    <p><textarea rows="5" cols="20" name="message"></textarea></p>
+    <p><input type="submit" value="Submit"></p>
+    </form><br>
 <a href="/list">Back</a>
 </body>
 </html>
