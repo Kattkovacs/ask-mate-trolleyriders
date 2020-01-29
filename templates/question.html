@@ -12,6 +12,7 @@
 
 <body>
     <h1>Page of answers</h1>
+    <h2>Question</h2>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -37,7 +38,8 @@
         </tr>
         {% endfor %}
         </tbody>
-    </table><br>
+    </table>
+    <h2>Answers</h2>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -62,7 +64,7 @@
         {% endfor %}
         </tbody>
     </table><br>
-<a href="/question/{{ questions[0].get('id') }}/new-answer">New Answer</a><br>
+<form action="/question/{{ questions[0].get('id') }}/new-answer"><input type="submit" value="New Answer"></form><br>
 <a href="/list">Back</a>
 </body>
 </html>

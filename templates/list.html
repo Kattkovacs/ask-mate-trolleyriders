@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <h1>List of questions</h1>
+    <h1>Page of questions</h1>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -22,6 +22,7 @@
             <th>title</th>
             <th>message</th>
             <th>image</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('title') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
+            <td><form action="/question/{{ item.get('id') }}/new-answer"><input type="submit" value="Answer"></form></td>
         </tr>
         {% endfor %}
         </tbody>

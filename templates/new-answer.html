@@ -12,6 +12,7 @@
 
 <body>
     <h1>Page of answers</h1>
+    <h2>Question</h2>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -37,7 +38,8 @@
         </tr>
         {% endfor %}
         </tbody>
-    </table><br>
+    </table>
+    <h2>Answers</h2>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -63,7 +65,7 @@
         </tbody>
     </table><br>
     <form action="/question/{{ questions[0].get('id') }}/new-answer" method="post">
-    <p>Answer:</p>
+    <p>New Answer:</p>
     <p><textarea rows="5" cols="20" name="message"></textarea></p>
     <p><input type="submit" value="Submit"></p>
     </form><br>
