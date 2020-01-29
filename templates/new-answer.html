@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <h1>Page of answers</h1>
-    <h2>Question</h2>
+    <h1 align="center">Answers</h1>
+    <h3>Question</h3>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -39,7 +39,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <h2>Answers</h2>
+    <h3>Answers</h3>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -65,10 +65,10 @@
         </tbody>
     </table><br>
     <form action="/question/{{ questions[0].get('id') }}/new-answer" method="post">
-    <p>New Answer:</p>
-    <p><textarea rows="5" cols="20" name="message"></textarea></p>
-    <p><input type="submit" value="Submit"></p>
+    <p align="center">Answer:</p>
+    <p align="center"><textarea rows="8" cols="40" name="message"></textarea></p>
+    <p align="center"><input type="submit" value="Submit"></p>
     </form><br>
-<a href="/list">Back</a>
+    <p align="center"><a href="/list">Back</a></p>
 </body>
 </html>

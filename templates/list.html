@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <h1>Page of questions</h1>
+    <h1 align="center">Questions</h1>
     <table>
         <thead style="border: 1px solid black;">
         <tr>
@@ -39,7 +39,7 @@
         </tr>
         {% endfor %}
         </tbody>
-    </table>
-    <p>Click <a href="/add-question">here<a> to add new question.<p>
+    </table><br>
+    <form action="/add-question"><p align="center"><input type="submit" value="New Question"></p></form>
 </body>
 </html>

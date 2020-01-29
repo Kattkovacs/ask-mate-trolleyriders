@@ -6,16 +6,15 @@
     </head>
 
     <body>
-        <h1>Add question form</h1>
-        <form action="/add-question" method="post">
-            <label for="add-input">Title:</label><br>
-            <textarea id="add-input" name="add" rows="4" cols="40"></textarea>
+        <h1 align="center">Add question form</h1>
+        <form action="/list" method="post">
+            <p align="center">Title:</p>
+            <p align="center"><textarea rows="2" cols="40" name="title"></textarea></p>
+            <p align="center">Message:</p>
+            <p align="center"><textarea rows="16" cols="40" name="message"></textarea></p>
+            <p align="center"><input type="submit" value="Submit"></p>
         </form>
-        <form action="/add-question" method="post">
-            <label for="add-input">Message:</label><br>
-            <textarea id="add-input" name="add" rows="4" cols="40"></textarea><br>
-            <button type="submit"><a href="/question/<question_id>">Submit<a></button>
-        </form>
+        <p align="center"><a href="/list">Back</a></p>
     </body>
 
 </html>
