@@ -12,11 +12,12 @@ def hello():
 
 @app.route("/list", methods=['GET', 'POST'])
 def list():
-    questions = connection.csv_to_list_of_dict("question.csv")
     if request.method == 'POST':
+        questions = connection.csv_to_list_of_dict("question.csv")
         newquestion = data_manager.generate_question(len(questions), request.form['title'], request.form['message'])
         questions.append(newquestion)
         connection.list_of_dict_to_csv(questions, "question.csv")
+    questions = connection.csv_to_list_of_dict("question.csv")
     questions = data_manager.newest_first(questions)
     questions = data_manager.decode_timestamp(questions)
 

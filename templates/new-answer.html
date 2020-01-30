@@ -16,7 +16,6 @@
     <table align="center">
         <thead style="border: 1px solid black;">
         <tr>
-            <th>id</th>
             <th>time</th>
             <th>views</th>
             <th>votes</th>
@@ -28,7 +27,6 @@
         <tbody>
         {% for item in questions %}
         <tr>
-            <td>{{ item.get('id') }}</td>
             <td>{{ item.get('submission_time') }}</td>
             <td>{{ item.get('view_number') }}</td>
             <td>{{ item.get('vote_number') }}</td>
@@ -43,7 +41,7 @@
     <table align="center">
         <thead style="border: 1px solid black;">
         <tr>
-            <th>id</th>
+            <th>#</th>
             <th>time</th>
             <th>votes</th>
             <th>question id</th>

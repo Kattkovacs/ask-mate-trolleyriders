@@ -15,7 +15,6 @@
     <table>
         <thead style="border: 1px solid black;">
         <tr>
-            <th>id</th>
             <th>time</th>
             <th>views</th>
             <th>votes</th>
@@ -28,7 +27,6 @@
         <tbody>
         {% for item in questions %}
         <tr>
-            <td><a href="/question/{{ item.get('id') }}">{{ item.get('id') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('submission_time') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('view_number') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('vote_number') }}</a></td>
