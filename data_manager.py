@@ -15,7 +15,7 @@ def filter_by_question_id(list, question_id, id='id'):
     return filtered
 
 
-def generate_question(leng, title, message):
+def generate_question(leng, title, message, image=''):
     question = {}
     question['id'] = leng + 1
     question['submission_time'] = int(round(datetime.timestamp(datetime.now())))
@@ -23,20 +23,18 @@ def generate_question(leng, title, message):
     question['vote_number'] = 0
     question['title'] = title
     question['message'] = message
-    question['image'] = None
-
+    question['image'] = image
     return question
 
 
-def generate_answer(leng, question_id, message):
+def generate_answer(leng, question_id, message, image=''):
     answer = {}
     answer['id'] = leng + 1
     answer['submission_time'] = int(round(datetime.timestamp(datetime.now())))
     answer['vote_number'] = 0
     answer['question_id'] = question_id
     answer['message'] = message
-    answer['image'] = None
-
+    answer['image'] = image
     return answer
 
 
