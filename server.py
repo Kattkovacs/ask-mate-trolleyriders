@@ -17,6 +17,7 @@ def list():
         newquestion = data_manager.generate_question(len(questions), request.form['title'], request.form['message'])
         questions.append(newquestion)
         connection.list_of_dict_to_csv(questions, "question.csv")
+    questions = data_manager.newest_first(questions)
     questions = data_manager.decode_timestamp(questions)
 
     return render_template("list.html", questions=questions)

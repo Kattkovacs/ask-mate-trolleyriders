@@ -35,3 +35,6 @@ def generate_answer(leng, question_id, message):
 
     return answer
 
+def newest_first(list):
+    return sorted(list, key=lambda k: k['submission_time'], reverse=True)
+
