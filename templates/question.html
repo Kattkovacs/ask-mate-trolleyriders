@@ -41,10 +41,8 @@
     <table align="center">
         <thead style="border: 1px solid black;">
         <tr>
-            <th>#</th>
             <th>time</th>
             <th>votes</th>
-            <th>question id</th>
             <th>message</th>
             <th>image</th>
         </tr>
@@ -52,10 +50,8 @@
         <tbody>
         {% for item in answers %}
         <tr>
-            <td>{{ item.get('id') }}</td>
             <td>{{ item.get('submission_time') }}</td>
             <td>{{ item.get('vote_number') }}</td>
-            <td>{{ item.get('question_id') }}</td>
             <td>{{ item.get('message') }}</td>
             <td>{{ item.get('image') }}</td>
         </tr>
