@@ -38,7 +38,7 @@ def generate_answer(leng, question_id, message, image=''):
     return answer
 
 
-def sorting(list, order_by, order_direction):
+def sorting(list, order_by='submission_time', order_direction='asc'):
     if order_direction == 'desc':
         dir = False
     else:

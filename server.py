@@ -12,11 +12,12 @@ def hello():
 
 @app.route("/list", methods=['GET', 'POST'])
 def list():
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['message'] != '' and request.form['title'] != '':
         questions = connection.csv_to_list_of_dict("question.csv")
         newquestion = data_manager.generate_question(len(questions), request.form['title'], request.form['message'])
         questions.append(newquestion)
         connection.list_of_dict_to_csv(questions, "question.csv")
+
     questions = connection.csv_to_list_of_dict("question.csv")
     questions = data_manager.sorting(questions, request.args.get('order_by', default='submission_time'), request.args.get('order_direction', default='asc'))
     questions = data_manager.decode_timestamp(questions)
@@ -33,6 +34,7 @@ def question(question_id):
     answers = connection.csv_to_list_of_dict("answer.csv")
     answers = data_manager.decode_timestamp(answers)
     answers = data_manager.filter_by_question_id(answers, question_id, 'question_id')
+    answers = data_manager.sorting(answers)
 
     return render_template("question.html", questions=questions, answers=answers)
 
@@ -53,7 +55,8 @@ def add_form():
 def new_answer(question_id):
     questions = connection.csv_to_list_of_dict("question.csv")
     answers = connection.csv_to_list_of_dict("answer.csv")
-    if request.method == 'POST':
+
+    if request.method == 'POST' and request.form['message'] != '':
         newanswer = data_manager.generate_answer(len(answers), question_id, request.form['message'])
         answers.append(newanswer)
         connection.list_of_dict_to_csv(answers, "answer.csv")

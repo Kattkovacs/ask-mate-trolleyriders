@@ -7,7 +7,11 @@
         body {
             background-color: palegreen;
         }
-        table, th, td {
+        table {
+            border: 2px solid black;
+            background-color: lightgoldenrodyellow;
+        }
+        th, td {
             border: 1px solid black;
             background-color: lightgoldenrodyellow;
         }
@@ -20,11 +24,11 @@
         <thead style="border: 1px solid black;">
         <tr>
             <th>time<a href="/list?order_by=submission_time&order_direction=asc">∧</a><a href="/list?order_by=submission_time&order_direction=desc">∨</a></th>
-            <th>views<a href="/list?order_by=view_number&order_direction=asc">∧</a><a href="/list?order_by=view_number&order_direction=desc">∨</a></th>
-            <th>votes<a href="/list?order_by=vote_number&order_direction=asc">∧</a><a href="/list?order_by=vote_number&order_direction=desc">∨</a></th>
             <th>title<a href="/list?order_by=title&order_direction=asc">∧</a><a href="/list?order_by=title&order_direction=desc">∨</a></th>
             <th>message<a href="/list?order_by=message&order_direction=asc">∧</a><a href="/list?order_by=message&order_direction=desc">∨</a></th>
             <th>image</th>
+            <th>views<a href="/list?order_by=view_number&order_direction=asc">∧</a><a href="/list?order_by=view_number&order_direction=desc">∨</a></th>
+            <th>votes<a href="/list?order_by=vote_number&order_direction=asc">∧</a><a href="/list?order_by=vote_number&order_direction=desc">∨</a></th>
             <th></th>
         </tr>
         </thead>
@@ -32,11 +36,11 @@
         {% for item in questions %}
         <tr>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('submission_time') }}</a></td>
-            <td><a href="/question/{{ item.get('id') }}">{{ item.get('view_number') }}</a></td>
-            <td><a href="/question/{{ item.get('id') }}">{{ item.get('vote_number') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('title') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}"><p align="center">{{ item.get('view_number') }}</p></a></td>
+            <td><a href="/question/{{ item.get('id') }}"><p align="center">{{ item.get('vote_number') }}</p></a></td>
             <td><form action="/question/{{ item.get('id') }}/new-answer"><input type="submit" value="Answer"></form></td>
         </tr>
         {% endfor %}

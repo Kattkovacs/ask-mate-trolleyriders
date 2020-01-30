@@ -7,7 +7,11 @@
         body {
             background-color: palegreen;
         }
-        table, th, td {
+        table {
+            border: 2px solid black;
+            background-color: lightgoldenrodyellow;
+        }
+        th, td {
             border: 1px solid black;
             background-color: lightgoldenrodyellow;
         }
@@ -21,22 +25,23 @@
         <thead style="border: 1px solid black;">
         <tr>
             <th>time</th>
-            <th>views</th>
-            <th>votes</th>
             <th>title</th>
             <th>message</th>
             <th>image</th>
+            <th>views</th>
+            <th>votes</th>
         </tr>
         </thead>
         <tbody>
         {% for item in questions %}
         <tr>
             <td>{{ item.get('submission_time') }}</td>
-            <td>{{ item.get('view_number') }}</td>
-            <td>{{ item.get('vote_number') }}</td>
+
             <td>{{ item.get('title') }}</td>
             <td>{{ item.get('message') }}</td>
             <td>{{ item.get('image') }}</td>
+            <td><p align="center">{{ item.get('view_number') }}</p></td>
+            <td><p align="center">{{ item.get('vote_number') }}</p></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -46,18 +51,18 @@
         <thead style="border: 1px solid black;">
         <tr>
             <th>time</th>
-            <th>votes</th>
             <th>message</th>
             <th>image</th>
+            <th>votes</th>
         </tr>
         </thead>
         <tbody>
         {% for item in answers %}
         <tr>
             <td>{{ item.get('submission_time') }}</td>
-            <td>{{ item.get('vote_number') }}</td>
             <td>{{ item.get('message') }}</td>
             <td>{{ item.get('image') }}</td>
+            <td><p align="center">{{ item.get('vote_number') }}</p></td>
         </tr>
         {% endfor %}
         </tbody>
