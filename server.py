@@ -18,7 +18,7 @@ def list():
         questions.append(newquestion)
         connection.list_of_dict_to_csv(questions, "question.csv")
     questions = connection.csv_to_list_of_dict("question.csv")
-    questions = data_manager.newest_first(questions)
+    questions = data_manager.sorting(questions, request.args.get('order_by', default='submission_time'), request.args.get('order_direction', default='asc'))
     questions = data_manager.decode_timestamp(questions)
 
     return render_template("list.html", questions=questions)

@@ -1,9 +1,11 @@
 from datetime import datetime
 
+
 def decode_timestamp(list):
     for item in list:
         item['submission_time'] = datetime.fromtimestamp(int(item['submission_time']))
     return list
+
 
 def filter_by_question_id(list, question_id, id='id'):
     filtered = []
@@ -11,6 +13,7 @@ def filter_by_question_id(list, question_id, id='id'):
         if item[id] == question_id:
             filtered.append(item)
     return filtered
+
 
 def generate_question(leng, title, message):
     question = {}
@@ -24,6 +27,7 @@ def generate_question(leng, title, message):
 
     return question
 
+
 def generate_answer(leng, question_id, message):
     answer = {}
     answer['id'] = leng + 1
@@ -35,6 +39,14 @@ def generate_answer(leng, question_id, message):
 
     return answer
 
-def newest_first(list, ):
-    return sorted(list, key=lambda k: k['submission_time'], reverse=True)
+
+def sorting(list, order_by, order_direction):
+    if order_direction == 'desc':
+        dir = False
+    else:
+        dir = True
+    if order_by == 'view_number' or order_by == 'vote_number':
+        return sorted(list, key=lambda k: int(k[order_by]), reverse=dir)
+    else:
+        return sorted(list, key=lambda k: k[order_by], reverse=dir)
 
