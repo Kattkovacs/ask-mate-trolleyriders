@@ -18,22 +18,16 @@ def show_list():
 
 @app.route("/question/<question_id>")
 def question_page(question_id):
-    question = data_manager.filter_by_id("question.csv", question_id)
-    answers = data_manager.filter_by_id("answer.csv", question_id, 'question_id')
-    # question['answers'] = data_manager.sorting(answers)
-    return render_template("question.html", question=question, answers=answers)
+    question = data_manager.filter_by_id("question.csv", question_id)[0]
+    question['answers'] = data_manager.filter_by_id("answer.csv", question_id, 'question_id')
+    return render_template("question.html", question=question)
 
 
 @app.route("/add-question", methods=['GET', 'POST'])
 def add_form():
     """if request.method == 'POST':
-        # we save the new note we got from the POST values
-        saved_data['add'] = request.form['add']
         # we update how many times it has been edited
-        saved_data['edit_count'] = saved_data.get('edit_count', 0) + 1
-
-        # redirect to the home page which will show the saved note
-        return redirect('/list')"""
+        saved_data['edit_count'] = saved_data.get('edit_count', 0) + 1"""
     if request.method == 'POST' and request.form['message'] != '' and request.form['title'] != '':
         new_q_id = data_manager.add_question(request.form['title'], request.form['message'])
         return redirect(url_for('question_page', question_id=new_q_id))
@@ -42,12 +36,11 @@ def add_form():
 
 @app.route("/question/<question_id>/new-answer", methods=['GET', 'POST'])
 def new_answer(question_id):
-    question = data_manager.filter_by_id("question.csv", question_id)
+    question = data_manager.filter_by_id("question.csv", question_id)[0]
     if request.method == 'POST' and request.form['message'] != '':
         data_manager.add_answer(question_id, request.form['message'])
-    answers = data_manager.filter_by_id("answer.csv", question_id, 'question_id')
-
-    return render_template("new-answer.html", question=question, answers=answers)
+    question['answers'] = data_manager.filter_by_id("answer.csv", question_id, 'question_id')
+    return render_template("new-answer.html", question=question)
 
 
 if __name__ == "__main__":

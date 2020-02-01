@@ -17,7 +17,6 @@
         }
     </style>
 </head>
-
 <body>
     <h1 align="center">Answers</h1>
     <h3 align="center">Question</h3>
@@ -33,17 +32,14 @@
         </tr>
         </thead>
         <tbody>
-        {% for item in question %}
         <tr>
-            <td>{{ item.get('submission_time') }}</td>
-
-            <td>{{ item.get('title') }}</td>
-            <td>{{ item.get('message') }}</td>
-            <td>{{ item.get('image') }}</td>
-            <td><p align="center">{{ item.get('view_number') }}</p></td>
-            <td><p align="center">{{ item.get('vote_number') }}</p></td>
+            <td>{{ question.get('submission_time') }}</td>
+            <td>{{ question.get('title') }}</td>
+            <td>{{ question.get('message') }}</td>
+            <td>{{ question.get('image') }}</td>
+            <td><p align="center">{{ question.get('view_number') }}</p></td>
+            <td><p align="center">{{ question.get('vote_number') }}</p></td>
         </tr>
-        {% endfor %}
         </tbody>
     </table>
     <h3 align="center">Answers</h3>
@@ -57,7 +53,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for item in answers %}
+        {% for item in question['answers'] %}
         <tr>
             <td>{{ item.get('submission_time') }}</td>
             <td>{{ item.get('message') }}</td>
@@ -67,7 +63,7 @@
         {% endfor %}
         </tbody>
     </table><br>
-    <form action="/question/{{ question[0].get('id') }}/new-answer"><p align="center"><input type="submit" value="New Answer"></p></form><br>
+    <form action="/question/{{ question.get('id') }}/new-answer"><p align="center"><input type="submit" value="New Answer"></p></form><br>
     <p align="center"><a href="/list">Back to Questions</a></p>
 </body>
 </html>
