@@ -1,4 +1,12 @@
 from datetime import datetime
+import connection
+
+
+def get_list(file, order_by='submission_time', order_direction="asc"):
+    questions = connection.csv_to_list_of_dict(file)
+    questions = sorting(questions, order_by, order_direction)
+    questions = decode_timestamp(questions)
+    return questions
 
 
 def decode_timestamp(list):
@@ -7,12 +15,14 @@ def decode_timestamp(list):
     return list
 
 
-def filter_by_question_id(list, question_id, id='id'):
+def filter_by_id(file, question_id, id='id'):
+    questions = connection.csv_to_list_of_dict(file)
+    questions = decode_timestamp(questions)
     filtered = []
-    for item in list:
+    for item in questions:
         if item[id] == question_id:
             filtered.append(item)
-    return filtered
+    return sorting(filtered)
 
 
 def generate_question(leng, title, message, image=''):
@@ -47,4 +57,18 @@ def sorting(list, order_by='submission_time', order_direction='asc'):
         return sorted(list, key=lambda k: int(k[order_by]), reverse=dir)
     else:
         return sorted(list, key=lambda k: k[order_by], reverse=dir)
+
+
+def add_question(title, message):
+    questions = connection.csv_to_list_of_dict("question.csv")
+    new_question = generate_question(len(questions), title, message)
+    questions.append(new_question)
+    connection.list_of_dict_to_csv(questions, "question.csv")
+    return new_question['id']
+
+def add_answer(question_id, message):
+    answers = connection.csv_to_list_of_dict("answer.csv")
+    newanswer = generate_answer(len(answers), question_id, message)
+    answers.append(newanswer)
+    connection.list_of_dict_to_csv(answers, "answer.csv")
 

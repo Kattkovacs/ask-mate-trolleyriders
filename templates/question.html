@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for item in questions %}
+        {% for item in question %}
         <tr>
             <td>{{ item.get('submission_time') }}</td>
 
@@ -67,7 +67,7 @@
         {% endfor %}
         </tbody>
     </table><br>
-    <form action="/question/{{ questions[0].get('id') }}/new-answer"><p align="center"><input type="submit" value="New Answer"></p></form><br>
-    <p align="center"><a href="/list">Back</a></p>
+    <form action="/question/{{ question[0].get('id') }}/new-answer"><p align="center"><input type="submit" value="New Answer"></p></form><br>
+    <p align="center"><a href="/list">Back to Questions</a></p>
 </body>
 </html>
