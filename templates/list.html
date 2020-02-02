@@ -30,6 +30,7 @@
             <th>views<a href="/list?order_by=view_number&order_direction=asc">∧</a><a href="/list?order_by=view_number&order_direction=desc">∨</a></th>
             <th>votes<a href="/list?order_by=vote_number&order_direction=asc">∧</a><a href="/list?order_by=vote_number&order_direction=desc">∨</a></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +43,7 @@
             <td><a href="/question/{{ item.get('id') }}"><p align="center">{{ item.get('view_number') }}</p></a></td>
             <td><a href="/question/{{ item.get('id') }}"><p align="center">{{ item.get('vote_number') }}</p></a></td>
             <td><form action="/question/{{ item.get('id') }}/new-answer"><input type="submit" value="Answer"></form></td>
+            <td><form action="/question/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         {% endfor %}
         </tbody>

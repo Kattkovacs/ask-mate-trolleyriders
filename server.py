@@ -43,5 +43,10 @@ def new_answer(question_id):
     return render_template("new-answer.html", question=question)
 
 
+@app.route("/question/<question_id>/delete")
+def delete(question_id):
+    data_manager.delete(question_id)
+    return redirect(url_for('show_list'))
+
 if __name__ == "__main__":
     app.run(debug=True)
