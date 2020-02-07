@@ -3,25 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Question</title>
-    <style>
-        body {
-            background-color: palegreen;
-        }
-        table {
-            border: 2px solid black;
-            background-color: lightgoldenrodyellow;
-        }
-        th, td {
-            border: 1px solid black;
-            background-color: lightgoldenrodyellow;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1 align="center">Answers</h1>
-    <h3 align="center">Question</h3>
-    <table align="center">
-        <thead style="border: 1px solid black;">
+    <h1>Answers</h1>
+    <h3>Question</h3>
+    <table>
+        <thead>
         <tr>
             <th>time</th>
             <th>title</th>
@@ -37,14 +25,14 @@
             <td>{{ question.get('title') }}</td>
             <td>{{ question.get('message') }}</td>
             <td>{{ question.get('image') }}</td>
-            <td><p align="center">{{ question.get('view_number') }}</p></td>
-            <td><p align="center">{{ question.get('vote_number') }}</p></td>
+            <td><p>{{ question.get('view_number') }}</p></td>
+            <td><p>{{ question.get('vote_number') }}</p></td>
         </tr>
         </tbody>
     </table>
-    <h3 align="center">Answers</h3>
-    <table align="center">
-        <thead style="border: 1px solid black;">
+    <h3>Answers</h3>
+    <table>
+        <thead>
         <tr>
             <th>time</th>
             <th>message</th>
@@ -58,12 +46,12 @@
             <td>{{ item.get('submission_time') }}</td>
             <td>{{ item.get('message') }}</td>
             <td>{{ item.get('image') }}</td>
-            <td><p align="center">{{ item.get('vote_number') }}</p></td>
+            <td><p>{{ item.get('vote_number') }}</p></td>
         </tr>
         {% endfor %}
         </tbody>
     </table><br>
-    <form action="/question/{{ question.get('id') }}/new-answer"><p align="center"><input type="submit" value="New Answer"></p></form><br>
-    <p align="center"><a href="/list">Back to Questions</a></p>
+    <form action="/question/{{ question.get('id') }}/new-answer"><p><input type="submit" value="New Answer"></p></form><br>
+    <p><a href="/list">Back to Questions</a></p>
 </body>
 </html>

@@ -3,25 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Questions</title>
-    <style>
-        body {
-            background-color: palegreen;
-        }
-        table {
-            border: 2px solid black;
-            background-color: lightgoldenrodyellow;
-        }
-        th, td {
-            border: 1px solid black;
-            background-color: lightgoldenrodyellow;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
-    <h1 align="center">Questions</h1>
+    <h1>Questions</h1>
     <table>
-        <thead style="border: 1px solid black;">
+        <thead>
         <tr>
             <th>time<a href="/list?order_by=submission_time&order_direction=asc">∧</a><a href="/list?order_by=submission_time&order_direction=desc">∨</a></th>
             <th>title<a href="/list?order_by=title&order_direction=asc">∧</a><a href="/list?order_by=title&order_direction=desc">∨</a></th>
@@ -40,14 +28,14 @@
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('title') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
-            <td><a href="/question/{{ item.get('id') }}"><p align="center">{{ item.get('view_number') }}</p></a></td>
-            <td><a href="/question/{{ item.get('id') }}"><p align="center">{{ item.get('vote_number') }}</p></a></td>
+            <td><a href="/question/{{ item.get('id') }}"><p>{{ item.get('view_number') }}</p></a></td>
+            <td><a href="/question/{{ item.get('id') }}"><p>{{ item.get('vote_number') }}</p></a></td>
             <td><form action="/question/{{ item.get('id') }}/new-answer"><input type="submit" value="Answer"></form></td>
             <td><form action="/question/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         {% endfor %}
         </tbody>
     </table><br>
-    <form action="/add-question"><p align="center"><input type="submit" value="New Question"></p></form>
+    <form action="/add-question"><p><input type="submit" value="New Question"></p></form>
 </body>
 </html>

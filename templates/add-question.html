@@ -3,21 +3,17 @@
 <head>
     <meta charset="utf-8">
     <title>New Question</title>
-    <style>
-        body {
-            background-color: palegreen;
-        }
-</style>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1 align="center">Add question form</h1>
+    <h1>Add question form</h1>
     <form action="/add-question" method="post">
-        <p align="center">Title:</p>
-        <p align="center"><textarea rows="2" cols="40" name="title"></textarea></p>
-        <p align="center">Message:</p>
-        <p align="center"><textarea rows="16" cols="40" name="message"></textarea></p>
-        <p align="center"><input type="submit" value="Submit"></p>
+        <p>Title:</p>
+        <p><textarea rows="2" cols="40" name="title" required="True"></textarea></p>
+        <p>Message:</p>
+        <p><textarea rows="16" cols="40" name="message" required="True"></textarea></p>
+        <p><input type="submit" value="Submit"></p>
     </form>
-    <p align="center"><a href="/list">Back</a></p>
+    <p><a href="/list">Back</a></p>
 </body>
 </html>
