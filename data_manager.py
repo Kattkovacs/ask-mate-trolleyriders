@@ -1,12 +1,26 @@
 from datetime import datetime
 import connection
+from typing import List, Dict
+
+from psycopg2 import sql
+from psycopg2.extras import RealDictCursor
 
 
-def get_list(file, order_by='submission_time', order_direction="asc"):
-    questions = connection.csv_to_list_of_dict(file)
-    questions = sorting(questions, order_by, order_direction)
-    questions = decode_timestamp(questions)
-    return questions
+# def get_list(file, order_by='submission_time', order_direction="asc"):
+#     questions = connection.csv_to_list_of_dict(file)
+#     questions = sorting(questions, order_by, order_direction)
+#     questions = decode_timestamp(questions)
+#     return questions
+
+@connection.connection_handler
+def get_list(cursor: RealDictCursor, order_by, order_direction) -> list:
+    if order_direction == 'ASC':
+        query = sql.SQL("SELECT * FROM question ORDER BY {o} ASC").format(o=sql.Identifier(order_by))
+        cursor.execute(query)
+    else:
+        query = sql.SQL("SELECT * FROM question ORDER BY {o} DESC").format(o=sql.Identifier(order_by))
+        cursor.execute(query)
+    return cursor.fetchall()
 
 
 def decode_timestamp(comment):

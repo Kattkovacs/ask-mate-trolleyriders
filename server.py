@@ -11,8 +11,9 @@ def index():
 
 @app.route("/list", methods=['GET', 'POST'])
 def show_list():
-    questions = data_manager.get_list("question.csv", request.args.get('order_by', default='submission_time'),
-                                      request.args.get('order_direction', default='asc'))
+    print(request.args.get('order_by', default='submission_time'))
+    questions = data_manager.get_list(request.args.get('order_by', default='submission_time'),
+                                      request.args.get('order_direction', default='DESC'))
     return render_template("list.html", questions=questions)
 
 
