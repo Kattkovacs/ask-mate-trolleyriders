@@ -36,17 +36,17 @@ def add_form():
 
 @app.route("/question/<question_id>/new-answer", methods=['GET', 'POST'])
 def new_answer(question_id):
-    question = data_manager.filter_by_id("question.csv", question_id)[0]
+    question = data_manager.filter_by_id('quest', question_id)[0]
     if request.method == 'POST':
         data_manager.add_answer(question_id, request.form['message'])
-    question['answers'] = data_manager.filter_by_id("answer.csv", question_id, 'question_id')
+    question['answers'] = data_manager.filter_by_id('answ', question_id, 'question_id')
     return render_template("new-answer.html", question=question)
 
 
-@app.route("/question/<question_id>/delete")
-def delete(question_id):
-    data_manager.delete(question_id)
-    return redirect(url_for('show_list'))
+# @app.route("/question/<question_id>/delete")
+# def delete(question_id):
+#     data_manager.delete(question_id)
+#     return redirect(url_for('show_list'))
 
 if __name__ == "__main__":
     app.run(debug=True)
