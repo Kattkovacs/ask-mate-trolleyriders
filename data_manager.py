@@ -96,7 +96,7 @@ def add_question(cursor: RealDictCursor, title, message):
     # return new_question['id']
     query = """
             INSERT INTO question (submission_time, view_number, vote_number, title, message, image)
-            VALUES (now(), 0, 0, %(title)s, %(msg)s, 'none')
+            VALUES (date_trunc('minute', now()), 0, 0, %(title)s, %(msg)s, 'none')
             RETURNING id;
             """
     cursor.execute(query, {'title': title, 'msg': message})
