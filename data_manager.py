@@ -29,14 +29,26 @@ def decode_timestamp(comment):
     return comment
 
 
-def filter_by_id(file, question_id, num='id'):
-    full_list = connection.csv_to_list_of_dict(file)
-    full_list = decode_timestamp(full_list)
-    filtered = []
-    for item in full_list:
-        if item[num] == question_id:
-            filtered.append(item)
-    return sorting(filtered)
+@connection.connection_handler
+def filter_by_id(cursor: RealDictCursor, table, question_id, num='id'):
+    if table == 'quest':
+        query = """
+                SELECT *
+                FROM question
+                WHERE question.id = %(q_id)s
+                ORDER BY submission_time;
+                """
+        cursor.execute(query, {'q_id': question_id})
+    else:
+        query = """
+                SELECT *
+                FROM answer
+                WHERE answer.question_id = %(q_id)s
+                ORDER BY submission_time;
+                """
+        cursor.execute(query, {'q_id': question_id})
+
+    return cursor.fetchall()
 
 
 def generate_question(questions, title, message, image=''):
@@ -75,14 +87,24 @@ def sorting(comments, order_by='submission_time', order_direction='asc'):
         return sorted(comments, key=lambda k: k[order_by], reverse=rev)
 
 
-def add_question(title, message):
-    questions = connection.csv_to_list_of_dict("question.csv")
-    new_question = generate_question(questions, title, message)
-    questions.append(new_question)
-    connection.list_of_dict_to_csv(questions, "question.csv")
-    return new_question['id']
+@connection.connection_handler
+def add_question(cursor: RealDictCursor, title, message):
+    # questions = connection.csv_to_list_of_dict("question.csv")
+    # new_question = generate_question(questions, title, message)
+    # questions.append(new_question)
+    # connection.list_of_dict_to_csv(questions, "question.csv")
+    # return new_question['id']
+    query = """
+            INSERT INTO question (submission_time, view_number, vote_number, title, message, image)
+            VALUES (now(), 0, 0, %(title)s, %(msg)s, 'none')
+            RETURNING id;
+            """
+    cursor.execute(query, {'title': title, 'msg': message})
+    result = cursor.fetchone()
+    return result['id']
 
 
+@connection.connection_handler
 def add_answer(question_id, message):
     answers = connection.csv_to_list_of_dict("answer.csv")
     newanswer = generate_answer(answers, question_id, message)
