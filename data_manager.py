@@ -17,7 +17,7 @@ def get_list(cursor: RealDictCursor, order_by, order_direction) -> list:
 
 
 @connection.connection_handler
-def filter_by_id(cursor: RealDictCursor, table, question_id, num='id'):
+def filter_by_id(cursor: RealDictCursor, table, question_id):
     if table == 'quest':
         query = """
                 SELECT *
@@ -58,19 +58,58 @@ def add_answer(cursor: RealDictCursor, question_id, message):
     cursor.execute(query, {'q_id': question_id, 'msg': message})
 
 
+@connection.connection_handler
+def del_comment(cursor: RealDictCursor, cid):
+    query = """
+            DELETE FROM comment
+            WHERE comment.id = %(c_id)s;
+            """
+    cursor.execute(query, {'c_id': cid})
 
 
+@connection.connection_handler
+def del_answer(cursor: RealDictCursor, aid):
+    query = """
+            DELETE FROM comment
+            WHERE comment.answer_id = %(a_id)s;
+            DELETE FROM answer
+            WHERE answer.id = %(a_id)s;
+            """
+    cursor.execute(query, {'a_id': aid})
 
-# def delete(question_id):
-#     questions = connection.csv_to_list_of_dict("question.csv")
-#     for question in questions:
-#         if question['id'] == question_id:
-#             questions.remove(question)
-#     connection.list_of_dict_to_csv(questions, "question.csv")
-#     answers = connection.csv_to_list_of_dict("answer.csv")
-#     answers_left = []
-#     for answer in answers:
-#         if answer['question_id'] != question_id:
-#             answers_left.append(answer)
-#     connection.list_of_dict_to_csv(answers_left, "answer.csv")
+@connection.connection_handler
+def get_answer_id(cursor: RealDictCursor, qid):
+    query = """
+            SELECT id
+            FROM answer
+            WHERE answer.question_id = %(q_id)s;
+            """
+    cursor.execute(query, {'q_id': qid})
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def del_comment_by_answer_id(cursor: RealDictCursor, aid):
+    query = """
+            DELETE FROM comment
+            WHERE comment.answer_id = %(a_id)s;
+            """
+    cursor.execute(query, {'a_id': aid})
+
+
+@connection.connection_handler
+def delete(cursor: RealDictCursor, qid):
+    query = """
+            DELETE FROM question_tag
+            WHERE question_tag.question_id = %(q_id)s;
+            DELETE FROM comment
+            WHERE comment.question_id = %(q_id)s;
+            DELETE FROM answer
+            WHERE answer.question_id = %(q_id)s;
+            DELETE FROM question
+            WHERE question.id = %(q_id)s;
+            """
+    for item in get_answer_id(qid):
+        del_comment_by_answer_id(item['id'])
+    cursor.execute(query, {'q_id': qid})
 
