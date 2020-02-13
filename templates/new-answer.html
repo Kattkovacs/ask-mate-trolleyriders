@@ -18,6 +18,7 @@
             <th>image</th>
             <th>views</th>
             <th>votes</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
             <td>{{ question.get('image') }}</td>
             <td><p>{{ question.get('view_number') }}</p></td>
             <td><p>{{ question.get('vote_number') }}</p></td>
+            <td><form action="/question/{{ question.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         </tbody>
     </table>
@@ -39,6 +41,7 @@
             <th>message</th>
             <th>image</th>
             <th>votes</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -48,6 +51,7 @@
             <td>{{ item.get('message') }}</td>
             <td>{{ item.get('image') }}</td>
             <td><p>{{ item.get('vote_number') }}</p></td>
+            <td><form action="/answer/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         {% endfor %}
         </tbody>

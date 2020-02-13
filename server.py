@@ -48,5 +48,13 @@ def delete(question_id):
     data_manager.delete(question_id)
     return redirect(url_for('show_list'))
 
+
+@app.route("/answer/<answer_id>/delete")
+def del_answer(answer_id):
+    question_id = data_manager.get_question_id(answer_id)['question_id']
+    data_manager.del_answer(answer_id)
+    return redirect(url_for('question_page', question_id=question_id))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

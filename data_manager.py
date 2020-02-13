@@ -89,6 +89,17 @@ def get_answer_id(cursor: RealDictCursor, qid):
 
 
 @connection.connection_handler
+def get_question_id(cursor: RealDictCursor, aid):
+    query = """
+            SELECT question_id
+            FROM answer
+            WHERE id = %(a_id)s;
+            """
+    cursor.execute(query, {'a_id': aid})
+    return cursor.fetchone()
+
+
+@connection.connection_handler
 def del_comment_by_answer_id(cursor: RealDictCursor, aid):
     query = """
             DELETE FROM comment
