@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer Comment</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <h1>Comments</h1>
+    <h3>Answer</h3>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th>time</th>
+            <th>message</th>
+            <th>image</th>
+            <th>votes</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ answer.get('submission_time') }}</td>
+            <td>{{ answer.get('message') }}</td>
+            <td>{{ answer.get('image') }}</td>
+            <td>{{ answer.get('vote_number') }}</td>
+            <td><form action="/answer/{{ answer.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <h3>Comments</h3>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th>time</th>
+            <th>message</th>
+            <th>edited</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in answer['comments'] %}
+        <tr>
+            <td>{{ item.get('submission_time') }}</td>
+            <td>{{ item.get('message') }}</td>
+            <td>{{ item.get('edited_count') }}</td>
+            <td><form action="/comments/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="/answer/{{ answer.get('id') }}/new-comment" method="post">
+    <p>Comment:</p>
+    <p><textarea rows="8" cols="40" name="message" required="True"></textarea></p>
+    <p><input type="submit" value="Submit"></p>
+    </form>
+    <p><a href="/question/{{ answer.get('question_id') }}">Back to Answers</a></p>
+    <p><a href="/list">Back to Questions</a></p>
+</body>
+</html>

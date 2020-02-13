@@ -26,13 +26,40 @@ def filter_by_id(cursor: RealDictCursor, table, question_id):
                 ORDER BY submission_time;
                 """
         cursor.execute(query, {'q_id': question_id})
-    else:
+    elif table == 'answ':
         query = """
                 SELECT *
                 FROM answer
                 WHERE answer.question_id = %(q_id)s
                 ORDER BY submission_time DESC;
                 """
+        cursor.execute(query, {'q_id': question_id})
+
+    elif table == 'answ_by_id':
+        query = """
+                SELECT *
+                FROM answer
+                WHERE answer.id = %(q_id)s
+                ORDER BY submission_time DESC;
+                """
+        cursor.execute(query, {'q_id': question_id})
+
+    elif table == 'comm_by_answ':
+        query = """
+                    SELECT *
+                    FROM comment
+                    WHERE comment.answer_id = %(q_id)s
+                    ORDER BY submission_time DESC;
+                    """
+        cursor.execute(query, {'q_id': question_id})
+
+    else:
+        query = """
+                    SELECT *
+                    FROM comment
+                    WHERE comment.question_id = %(q_id)s
+                    ORDER BY submission_time DESC;
+                    """
         cursor.execute(query, {'q_id': question_id})
     return cursor.fetchall()
 
@@ -56,6 +83,24 @@ def add_answer(cursor: RealDictCursor, question_id, message):
             VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, 'none');
             """
     cursor.execute(query, {'q_id': question_id, 'msg': message})
+
+
+@connection.connection_handler
+def add_question_comment(cursor: RealDictCursor, question_id, message):
+    query = """
+            INSERT INTO comment (submission_time, edited_count, question_id, message)
+            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s);
+            """
+    cursor.execute(query, {'q_id': question_id, 'msg': message})
+
+
+@connection.connection_handler
+def add_answer_comment(cursor: RealDictCursor, answer_id, message):
+    query = """
+            INSERT INTO comment (submission_time, edited_count, answer_id, message)
+            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s);
+            """
+    cursor.execute(query, {'q_id': answer_id, 'msg': message})
 
 
 @connection.connection_handler
@@ -89,10 +134,32 @@ def get_answer_id(cursor: RealDictCursor, qid):
 
 
 @connection.connection_handler
-def get_question_id(cursor: RealDictCursor, aid):
+def get_answer_question_id(cursor: RealDictCursor, aid):
     query = """
             SELECT question_id
             FROM answer
+            WHERE id = %(a_id)s;
+            """
+    cursor.execute(query, {'a_id': aid})
+    return cursor.fetchone()
+
+
+@connection.connection_handler
+def get_comment_question_id(cursor: RealDictCursor, aid):
+    query = """
+            SELECT question_id
+            FROM comment
+            WHERE id = %(a_id)s;
+            """
+    cursor.execute(query, {'a_id': aid})
+    return cursor.fetchone()
+
+
+@connection.connection_handler
+def get_comment_answer_id(cursor: RealDictCursor, aid):
+    query = """
+            SELECT answer_id
+            FROM comment
             WHERE id = %(a_id)s;
             """
     cursor.execute(query, {'a_id': aid})

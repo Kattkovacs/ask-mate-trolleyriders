@@ -19,6 +19,7 @@
             <th>votes<a href="/list?order_by=vote_number&order_direction=ASC">∧</a><a href="/list?order_by=vote_number&order_direction=DESC">∨</a></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -28,9 +29,10 @@
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('title') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
-            <td><a href="/question/{{ item.get('id') }}"><p>{{ item.get('view_number') }}</p></a></td>
-            <td><a href="/question/{{ item.get('id') }}"><p>{{ item.get('vote_number') }}</p></a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('view_number') }}</a></td>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('vote_number') }}</a></td>
             <td><form action="/question/{{ item.get('id') }}/new-answer"><input type="submit" value="Answer"></form></td>
+            <td><form action="/question/{{ item.get('id') }}/new-comment"><input type="submit" value="Comment"></form></td>
             <td><form action="/question/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         {% endfor %}
