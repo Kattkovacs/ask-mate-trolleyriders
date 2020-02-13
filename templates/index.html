@@ -8,6 +8,20 @@
 
 <body>
     <h1>Ask Mate</h1>
-    <p>Click <a href="/list">here<a> to start.<p>
-</body>
+    <table>
+        <thead>
+        <tr>
+            <th>message<a href="/list?order_by=message&order_direction=ASC">∧</a><a href="/list?order_by=message&order_direction=DESC">∨</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in questions %}
+        <tr>
+            <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table><br>
+    <form action="/list"><p><input type="submit" value="ENTER"</p></form>
+    </body>
 </html>

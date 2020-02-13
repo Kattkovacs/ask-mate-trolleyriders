@@ -6,6 +6,13 @@ from psycopg2.extras import RealDictCursor
 
 
 @connection.connection_handler
+def firsts_from_list(cursor: RealDictCursor, order_by, order_direction) -> list:
+    query = sql.SQL("SELECT * FROM question WHERE id < 6 ORDER BY {o} DESC ").format(o=sql.Identifier(order_by))
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
+@connection.connection_handler
 def get_list(cursor: RealDictCursor, order_by, order_direction) -> list:
     if order_direction == 'ASC':
         query = sql.SQL("SELECT * FROM question ORDER BY {o} ASC").format(o=sql.Identifier(order_by))

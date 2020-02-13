@@ -4,9 +4,11 @@ import data_manager
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
-    return render_template("index.html")
+    questions = data_manager.firsts_from_list(request.args.get('order_by', default='submission_time'),
+                                      request.args.get('order_direction', default='DESC'))
+    return render_template("index.html", questions=questions)
 
 
 @app.route("/list", methods=['GET', 'POST'])
