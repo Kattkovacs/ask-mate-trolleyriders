@@ -19,8 +19,8 @@
             <th>image</th>
             <th>views</th>
             <th>votes</th>
-            <th></th>
-            <th></th>
+            <th>comment</th>
+            <th>delete</th>
         </tr>
         </thead>
         <tbody>
@@ -46,17 +46,17 @@
             <th>message</th>
             <th>image</th>
             <th>votes</th>
-            <th></th>
-            <th></th>
+            <th>comment</th>
+            <th>delete</th>
         </tr>
         </thead>
         <tbody>
         {% for item in question['answers'] %}
         <tr>
-            <td>{{ item.get('submission_time') }}</td>
-            <td>{{ item.get('message') }}</td>
-            <td>{{ item.get('image') }}</td>
-            <td><p>{{ item.get('vote_number') }}</p></td>
+            <td><a href="/answer/{{ item.get('id') }}/new-comment">{{ item.get('submission_time') }}</a></td>
+            <td><a href="/answer/{{ item.get('id') }}/new-comment">{{ item.get('message') }}</a></td>
+            <td><a href="/answer/{{ item.get('id') }}/new-comment">{{ item.get('image') }}</a></td>
+            <td><a href="/answer/{{ item.get('id') }}/new-comment">{{ item.get('vote_number') }}</a></td>
             <td><form action="/answer/{{ item.get('id') }}/new-comment"><input type="submit" value="Comment"></form></td>
             <td><form action="/answer/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
@@ -64,10 +64,10 @@
         </tbody>
     </table>
     <form action="/question/{{ question.get('id') }}/new-answer" method="post">
-    <p>Answer:</p>
-    <p><textarea rows="8" cols="40" name="message" required="True"></textarea></p>
+    <p id="back">Answer:</p>
+    <p><textarea rows="8" cols="40" placeholder="Your answer goes here" name="message" required="True"></textarea></p>
     <p><input type="submit" value="Submit"></p>
     </form>
-    <p><a href="/list">Back to Questions</a></p>
+    <p><a id="back" href="/list">Back to Questions</a></p>
 </body>
 </html>

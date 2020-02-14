@@ -8,20 +8,12 @@
 
 <body>
     <h1>Ask Mate</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>message<a href="/list?order_by=message&order_direction=ASC">∧</a><a href="/list?order_by=message&order_direction=DESC">∨</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in questions %}
-        <tr>
-            <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table><br>
+    <br>
+    <h3 id="intro">WELCOME</h3>
+    <br>
+    {% for item in questions[:5] %}
+        <p id="intro">"{{ item.get('message') }}"</p><br>
+    {% endfor %}
     <form action="/list"><p><input type="submit" value="ENTER"</p></form>
     </body>
 </html>

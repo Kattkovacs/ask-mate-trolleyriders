@@ -8,12 +8,12 @@
 <body>
     <h1>Add question form</h1>
     <form action="/add-question" method="post">
-        <p>Title:</p>
-        <p><textarea rows="2" cols="40" name="title" required="True"></textarea></p>
-        <p>Message:</p>
-        <p><textarea rows="16" cols="40" name="message" required="True"></textarea></p>
+        <p id="back">Title:</p>
+        <p><textarea placeholder="Enter title" rows="2" cols="40" name="title" required="True"></textarea></p>
+        <p id="back">Message:</p>
+        <p><textarea placeholder="Your question goes here" rows="16" cols="40" name="message" required="True"></textarea></p>
         <p><input type="submit" value="Submit"></p>
     </form>
-    <p><a href="/list">Back</a></p>
+    <p><a id="back" href="/list">Back</a></p>
 </body>
 </html>

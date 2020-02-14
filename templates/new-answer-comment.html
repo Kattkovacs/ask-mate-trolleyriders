@@ -17,7 +17,7 @@
             <th>message</th>
             <th>image</th>
             <th>votes</th>
-            <th></th>
+            <th>delete</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
             <th>time</th>
             <th>message</th>
             <th>edited</th>
-            <th></th>
+            <th>delete</th>
         </tr>
         </thead>
         <tbody>
@@ -54,11 +54,11 @@
         </tbody>
     </table>
     <form action="/answer/{{ answer.get('id') }}/new-comment" method="post">
-    <p>Comment:</p>
-    <p><textarea rows="8" cols="40" name="message" required="True"></textarea></p>
+    <p id ="back">Comment:</p>
+    <p><textarea placeholder="Your comment goes here" rows="8" cols="40" name="message" required="True"></textarea></p>
     <p><input type="submit" value="Submit"></p>
     </form>
-    <p><a href="/question/{{ answer.get('question_id') }}">Back to Answers</a></p>
-    <p><a href="/list">Back to Questions</a></p>
+    <p><a id ="back" href="/question/{{ answer.get('question_id') }}">Back to Answers</a></p>
+    <p><a id ="back" href="/list">Back to Questions</a></p>
 </body>
 </html>

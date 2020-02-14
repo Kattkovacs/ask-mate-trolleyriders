@@ -18,8 +18,8 @@
             <th>image</th>
             <th>views</th>
             <th>votes</th>
-            <th></th>
-            <th></th>
+            <th>comment</th>
+            <th>delete</th>
         </tr>
         </thead>
         <tbody>
@@ -45,8 +45,8 @@
             <th>message</th>
             <th>image</th>
             <th>votes</th>
-            <th></th>
-            <th></th>
+            <th>comment</th>
+            <th>delete</th>
         </tr>
         </thead>
         <tbody>
@@ -63,6 +63,6 @@
         </tbody>
     </table>
     <form action="/question/{{ question.get('id') }}/new-answer"><p><input type="submit" value="New Answer"></p></form><br>
-    <p><a href="/list">Back to Questions</a></p>
+    <p><a id="back" href="/list">Back to Questions</a></p>
 </body>
 </html>
