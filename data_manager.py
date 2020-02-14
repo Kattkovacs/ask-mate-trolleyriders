@@ -111,23 +111,21 @@ def add_answer_comment(cursor: RealDictCursor, answer_id, message):
 
 
 @connection.connection_handler
-def del_comment(cursor: RealDictCursor, cid):
+def select_qa(cursor: RealDictCursor, comment_id):
     query = """
-            DELETE FROM comment
+            SELECT question_id, answer_id FROM comment
             WHERE comment.id = %(c_id)s;
             """
-    cursor.execute(query, {'c_id': cid})
+    cursor.execute(query, {'c_id': comment_id})
+    return cursor.fetchall()
 
 
-@connection.connection_handler
-def del_answer(cursor: RealDictCursor, aid):
-    query = """
-            DELETE FROM comment
-            WHERE comment.answer_id = %(a_id)s;
-            DELETE FROM answer
-            WHERE answer.id = %(a_id)s;
-            """
-    cursor.execute(query, {'a_id': aid})
+def get_question_details(question_id):
+    question = filter_by_id('quest', question_id)[0]
+    question['answers'] = filter_by_id('answ', question_id)
+    question['comments'] = filter_by_id('comm', question_id)
+    return question
+
 
 @connection.connection_handler
 def get_answer_id(cursor: RealDictCursor, qid):
@@ -174,10 +172,19 @@ def get_comment_answer_id(cursor: RealDictCursor, aid):
 
 
 @connection.connection_handler
-def del_comment_by_answer_id(cursor: RealDictCursor, aid):
+def del_comment(cursor: RealDictCursor, cid):
     query = """
             DELETE FROM comment
-            WHERE comment.answer_id = %(a_id)s;
+            WHERE comment.id = %(c_id)s;
+            """
+    cursor.execute(query, {'c_id': cid})
+
+
+@connection.connection_handler
+def del_answer(cursor: RealDictCursor, aid):
+    query = """
+            DELETE FROM answer
+            WHERE answer.id = %(a_id)s;
             """
     cursor.execute(query, {'a_id': aid})
 
@@ -185,16 +192,7 @@ def del_comment_by_answer_id(cursor: RealDictCursor, aid):
 @connection.connection_handler
 def delete(cursor: RealDictCursor, qid):
     query = """
-            DELETE FROM question_tag
-            WHERE question_tag.question_id = %(q_id)s;
-            DELETE FROM comment
-            WHERE comment.question_id = %(q_id)s;
-            DELETE FROM answer
-            WHERE answer.question_id = %(q_id)s;
             DELETE FROM question
             WHERE question.id = %(q_id)s;
             """
-    for item in get_answer_id(qid):
-        del_comment_by_answer_id(item['id'])
     cursor.execute(query, {'q_id': qid})
-

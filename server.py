@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def index():
     questions = data_manager.firsts_from_list(request.args.get('order_by', default='submission_time'),
-                                      request.args.get('order_direction', default='DESC'))
+                                              request.args.get('order_direction', default='DESC'))
     return render_template("index.html", questions=questions)
 
 
@@ -20,9 +20,7 @@ def show_list():
 
 @app.route("/question/<question_id>")
 def question_page(question_id):
-    question = data_manager.filter_by_id('quest', question_id)[0]
-    question['answers'] = data_manager.filter_by_id('answ', question_id)
-    question['comments'] = data_manager.filter_by_id('comm', question_id)
+    question = data_manager.get_question_details(question_id)
     return render_template("question.html", question=question)
 
 
@@ -39,18 +37,20 @@ def add_form():
 
 @app.route("/question/<question_id>/new-answer", methods=['GET', 'POST'])
 def new_answer(question_id):
-    question = data_manager.filter_by_id('quest', question_id)[0]
     if request.method == 'POST':
         data_manager.add_answer(question_id, request.form['message'])
+
+    question = data_manager.filter_by_id('quest', question_id)[0]
     question['answers'] = data_manager.filter_by_id('answ', question_id)
     return render_template("new-answer.html", question=question)
 
 
 @app.route("/question/<question_id>/new-comment", methods=['GET', 'POST'])
 def new_question_comment(question_id):
-    question = data_manager.filter_by_id('quest', question_id)[0]
     if request.method == 'POST':
         data_manager.add_question_comment(question_id, request.form['message'])
+
+    question = data_manager.filter_by_id('quest', question_id)[0]
     question['comments'] = data_manager.filter_by_id('comm', question_id)
     return render_template("new-question-comment.html", question=question)
 
@@ -79,8 +79,15 @@ def del_answer(answer_id):
 
 @app.route("/comments/<comment_id>/delete")
 def del_comment(comment_id):
+    q_or_a = data_manager.select_qa(comment_id)
     data_manager.del_comment(comment_id)
-    return redirect(url_for('show_list'))
+
+    if q_or_a[0]['question_id'] is None:
+        answer_id = q_or_a[0]['answer_id']
+        return redirect(url_for('new_answer_comment', answer_id=answer_id))
+
+    question_id = q_or_a[0]['question_id']
+    return redirect(url_for('new_question_comment', question_id=question_id))
 
 
 if __name__ == "__main__":
