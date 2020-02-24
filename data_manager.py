@@ -14,7 +14,7 @@ def firsts_from_list(cursor: RealDictCursor, order_by, order_direction) -> list:
 
 @connection.connection_handler
 def get_list(cursor: RealDictCursor, order_by, order_direction) -> list:
-    if order_direction == 'ASC':
+    if order_direction == 'asc':
         query = sql.SQL("SELECT * FROM question ORDER BY {o} ASC").format(o=sql.Identifier(order_by))
         cursor.execute(query)
     else:

@@ -7,14 +7,14 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def index():
     questions = data_manager.firsts_from_list(request.args.get('order_by', default='submission_time'),
-                                              request.args.get('order_direction', default='DESC'))
+                                              request.args.get('order_direction', default='desc'))
     return render_template("index.html", questions=questions)
 
 
 @app.route("/list", methods=['GET', 'POST'])
 def show_list():
     questions = data_manager.get_list(request.args.get('order_by', default='submission_time'),
-                                      request.args.get('order_direction', default='DESC'))
+                                      request.args.get('order_direction', default='desc'))
     return render_template("list.html", questions=questions)
 
 

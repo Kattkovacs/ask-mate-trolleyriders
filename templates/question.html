@@ -36,6 +36,7 @@
         </tbody>
     </table>
     <br>
+    {% if question['answers'] %}
     <h3>Answers</h3>
     <br>
     <table>
@@ -62,6 +63,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
     <form action="/question/{{ question.get('id') }}/new-answer"><p><input type="submit" value="New Answer"></p></form><br>
     <p><a id="back" href="/list">Back to Questions</a></p>
 </body>

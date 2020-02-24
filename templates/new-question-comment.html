@@ -35,6 +35,7 @@
         </tbody>
     </table>
     <br>
+    {% if question['comments'] %}
     <h3>Comments</h3>
     <br>
     <table>
@@ -57,6 +58,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
     <form action="/question/{{ question.get('id') }}/new-comment" method="post">
     <p id="back">Comment:</p>
     <p><textarea placeholder="Your comment goes here" rows="8" cols="40" name="message" required="True"></textarea></p>

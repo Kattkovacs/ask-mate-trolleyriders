@@ -37,6 +37,7 @@
         </tbody>
     </table>
     <br>
+    {% if question['answers'] %}
     <h3>Answers</h3>
     <br>
     <table>
@@ -63,6 +64,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
     <form action="/question/{{ question.get('id') }}/new-answer" method="post">
     <p id="back">Answer:</p>
     <p><textarea rows="8" cols="40" placeholder="Your answer goes here" name="message" required="True"></textarea></p>
