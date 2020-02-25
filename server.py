@@ -11,6 +11,14 @@ def index():
     return render_template("index.html", questions=questions)
 
 
+@app.route("/registration", methods=['GET', 'POST'])
+def registration():
+    if request.method == 'POST':
+        data_manager.add_user(request.form['user_name'], data_manager.hash_password(request.form['password']))
+        return redirect(url_for('show_list'))
+    return render_template("registration.html")
+
+
 @app.route("/list", methods=['GET', 'POST'])
 def show_list():
     questions = data_manager.get_list(request.args.get('order_by', default='submission_time'),

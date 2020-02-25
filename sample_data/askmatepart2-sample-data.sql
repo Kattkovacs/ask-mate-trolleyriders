@@ -5,6 +5,7 @@
 -- Dumped from database version 9.5.6
 -- Dumped by pg_dump version 9.5.6
 
+ALTER TABLE IF EXISTS ONLY public.user_data DROP CONSTRAINT IF EXISTS pk_user_data_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.answer DROP CONSTRAINT IF EXISTS pk_answer_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.answer DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
@@ -15,6 +16,19 @@ ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS pk_ques
 ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.tag DROP CONSTRAINT IF EXISTS pk_tag_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question_tag DROP CONSTRAINT IF EXISTS fk_tag_id CASCADE;
+
+DROP TABLE IF EXISTS public.user_data;
+CREATE TABLE user_data (
+    id serial NOT NULL,
+    user_name text,
+    password text,
+    registration_date timestamp without time zone,
+    count_of_asked_questions integer,
+    count_of_answers integer,
+    count_of_comments integer,
+    reputation integer,
+    image text
+);
 
 DROP TABLE IF EXISTS public.question;
 CREATE TABLE question (
@@ -61,6 +75,9 @@ CREATE TABLE tag (
 );
 
 
+ALTER TABLE ONLY user_data
+    ADD CONSTRAINT pk_user_data_id PRIMARY KEY (id);
+
 ALTER TABLE ONLY answer
     ADD CONSTRAINT pk_answer_id PRIMARY KEY (id);
 
@@ -90,6 +107,9 @@ ALTER TABLE ONLY comment
 
 ALTER TABLE ONLY question_tag
     ADD CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE CASCADE;
+
+INSERT INTO user_data VALUES (1, 'john@nasa.gov', '$2b$12$NQ9qcc7qVjcFp9xXs/h9neCtNE7g21Jbj4KUZ5btwdBiJUnIIlM4G', '2017-05-01 10:41:00', 1364, 57, 12, 43, NULL);
+SELECT pg_catalog.setval('user_data_id_seq', 1, true);
 
 INSERT INTO question VALUES (0, '2017-04-28 08:29:00', 29, 7, 'How to make lists in Python?', 'I am totally new to this, any hints?', NULL);
 INSERT INTO question VALUES (1, '2017-04-29 09:19:00', 15, 9, 'Wordpress loading multiple jQuery Versions', 'I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $(".myBook").booklet();

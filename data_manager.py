@@ -3,6 +3,18 @@ from typing import List, Dict
 
 from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
+import bcrypt
+
+
+def hash_password(plain_text_password):
+    # By using bcrypt, the salt is saved into the hash itself
+    hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
+
+
+def verify_password(plain_text_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
 
 
 @connection.connection_handler
@@ -69,6 +81,18 @@ def filter_by_id(cursor: RealDictCursor, table, question_id):
                     """
         cursor.execute(query, {'q_id': question_id})
     return cursor.fetchall()
+
+
+@connection.connection_handler
+def add_user(cursor: RealDictCursor, user_name, password):
+    query = """
+            INSERT INTO user_data (user_name, password, registration_date, count_of_asked_questions, count_of_answers, count_of_comments, reputation, image)
+            VALUES (%(user_name)s, %(password)s, date_trunc('minute', now()), 0, 0, 0, 0, 'none')
+            RETURNING id;
+            """
+    cursor.execute(query, {'user_name': user_name, 'password': password})
+    result = cursor.fetchone()
+    return result['id']
 
 
 @connection.connection_handler
