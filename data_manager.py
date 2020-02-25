@@ -18,6 +18,31 @@ def verify_password(plain_text_password, hashed_password):
 
 
 @connection.connection_handler
+def users(cursor: RealDictCursor, email):
+    query = """
+            SELECT CASE WHEN EXISTS (SELECT user_name
+            FROM user_data
+            WHERE user_name = %(email)s)
+            THEN 1
+            ELSE 0 END;
+            """
+    cursor.execute(query, {'email': email})
+    return cursor.fetchall()
+
+
+@connection.connection_handler
+def passwords(cursor: RealDictCursor, email):
+    query = """
+            SELECT password
+            FROM user_data
+            WHERE user_name = %(email)s;            
+            """
+    cursor.execute(query, {'email': email})
+    result = cursor.fetchone()
+    return result['password']
+
+
+@connection.connection_handler
 def firsts_from_list(cursor: RealDictCursor, order_by, order_direction) -> list:
     query = sql.SQL("SELECT * FROM question WHERE id < 6 ORDER BY {o} DESC ").format(o=sql.Identifier(order_by))
     cursor.execute(query)

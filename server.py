@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import data_manager
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 @app.route("/", methods=['GET'])
@@ -17,6 +18,19 @@ def registration():
         data_manager.add_user(request.form['user_name'], data_manager.hash_password(request.form['password']))
         return redirect(url_for('show_list'))
     return render_template("registration.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if not data_manager.users(request.form['user_name']) or not data_manager.verify_password(request.form['password'], data_manager.passwords(request.form['user_name'])):
+            error = 'Wrong password!'
+        else:
+            session['user_name'] = request.form['user_name']
+            session['password'] = data_manager.hash_password(request.form['password'])
+            return redirect(url_for('show_list'))
+    return render_template("login.html", error=error)
 
 
 @app.route("/list", methods=['GET', 'POST'])
