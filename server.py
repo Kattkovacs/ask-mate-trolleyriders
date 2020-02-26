@@ -26,7 +26,8 @@ def registration():
 def login():
     error = None
     if request.method == 'POST':
-        if not data_manager.users(request.form['user_name']) or not data_manager.verify_password(request.form['password'], data_manager.passwords(request.form['user_name'])):
+        if not data_manager.users(request.form['user_name']) or not data_manager.verify_password(
+                request.form['password'], data_manager.passwords(request.form['user_name'])):
             error = 'Wrong password!'
         else:
             session['user_name'] = request.form['user_name']
@@ -130,11 +131,29 @@ def del_comment(comment_id):
         return redirect(url_for('new_question_comment', question_id=question_id))
     return redirect(url_for('login'))
 
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
     # flash("You are logged out")
     session.pop('user_name', None)
+    return redirect(url_for('index'))
+
+
+@app.route('/users', methods=['GET'])
+def all_users():
+    all_users_list = data_manager.get_users_list(request.args.get('order_by', default='registration_date'),
+                                                 request.args.get('order_direction', default='desc'))
+    if 'user_name' in session:
+        return render_template("users.html", all_users_list=all_users_list, email=session['user_name'])
+    return redirect(url_for('index'))
+
+
+@app.route('/user/<user_id>')
+def user_profile(user_id):
+    user_by_id = data_manager.get_user_details(user_id)
+    if 'user_name' in session:
+        return render_template("profile.html", user_by_id=user_by_id, email=session['user_name'])
     return redirect(url_for('index'))
 
 

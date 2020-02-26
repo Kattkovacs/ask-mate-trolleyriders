@@ -1,3 +1,5 @@
+from flask import session
+
 import connection
 from typing import List, Dict
 
@@ -61,6 +63,17 @@ def get_list(cursor: RealDictCursor, order_by, order_direction) -> list:
 
 
 @connection.connection_handler
+def get_users_list(cursor: RealDictCursor, order_by, order_direction) -> list:
+    if order_direction == 'asc':
+        query = sql.SQL("SELECT * FROM user_data ORDER BY {o} ASC").format(o=sql.Identifier(order_by))
+        cursor.execute(query)
+    else:
+        query = sql.SQL("SELECT * FROM user_data ORDER BY {o} DESC").format(o=sql.Identifier(order_by))
+        cursor.execute(query)
+    return cursor.fetchall()
+
+
+@connection.connection_handler
 def filter_by_id(cursor: RealDictCursor, table, question_id):
     if table == 'quest':
         query = """
@@ -70,6 +83,7 @@ def filter_by_id(cursor: RealDictCursor, table, question_id):
                 ORDER BY submission_time;
                 """
         cursor.execute(query, {'q_id': question_id})
+
     elif table == 'answ':
         query = """
                 SELECT *
@@ -245,3 +259,35 @@ def delete(cursor: RealDictCursor, qid):
             WHERE question.id = %(q_id)s;
             """
     cursor.execute(query, {'q_id': qid})
+
+
+@connection.connection_handler
+def user_profile_list(cursor: RealDictCursor) -> list:
+    query = """
+        SELECT * FROM user_data
+        """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
+def get_user_id():
+    user_data_lst = user_profile_list()
+    if session['user_name'] == user_data_lst['user_name']:
+        user_id = user_data_lst['id']
+    return user_id
+
+
+@connection.connection_handler
+def filter_by_user_id(cursor: RealDictCursor, table, user_id):
+    if table == 'us':
+        query = """
+                SELECT *
+                FROM user_data
+                WHERE user_data.id = %(u_id)s
+                """
+        cursor.execute(query, {'u_id': user_id})
+    return cursor.fetchall()
+
+def get_user_details(user_id):
+    user_by_id = filter_by_user_id('us', user_id)[0]
+    return user_by_id
