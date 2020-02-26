@@ -135,13 +135,13 @@ def add_user(cursor: RealDictCursor, user_name, password):
 
 
 @connection.connection_handler
-def add_question(cursor: RealDictCursor, title, message):
+def add_question(cursor: RealDictCursor, title, message, user):
     query = """
-            INSERT INTO question (submission_time, view_number, vote_number, title, message, image)
-            VALUES (date_trunc('minute', now()), 0, 0, %(title)s, %(msg)s, 'none')
+            INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id)
+            VALUES (date_trunc('minute', now()), 0, 0, %(title)s, %(msg)s, 'none', %(uid)s)
             RETURNING id;
             """
-    cursor.execute(query, {'title': title, 'msg': message})
+    cursor.execute(query, {'title': title, 'msg': message, 'uid': user})
     result = cursor.fetchone()
     return result['id']
 
@@ -188,6 +188,17 @@ def get_question_details(question_id):
     question['answers'] = filter_by_id('answ', question_id)
     question['comments'] = filter_by_id('comm', question_id)
     return question
+
+
+@connection.connection_handler
+def get_user_id(cursor: RealDictCursor, un):
+    query = """
+            SELECT id
+            FROM user_data
+            WHERE user_data.user_name = %(us_nam)s;
+            """
+    cursor.execute(query, {'us_nam': un})
+    return cursor.fetchall()
 
 
 @connection.connection_handler

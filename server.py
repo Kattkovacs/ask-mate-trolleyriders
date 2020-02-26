@@ -58,7 +58,7 @@ def add_form():
         # we update how many times it has been edited
         saved_data['edit_count'] = saved_data.get('edit_count', 0) + 1"""
     if request.method == 'POST':
-        new_q_id = data_manager.add_question(request.form['title'], request.form['message'])
+        new_q_id = data_manager.add_question(request.form['title'], request.form['message'], data_manager.get_user_id(session['user_name'])[0]['id'])
         return redirect(url_for('question_page', question_id=new_q_id))
     if 'user_name' in session:
         return render_template("add-question.html", email=session['user_name'])
