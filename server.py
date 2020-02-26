@@ -9,6 +9,8 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def index():
     questions = data_manager.firsts_from_list(request.args.get('order_by', default='submission_time'),
                                               request.args.get('order_direction', default='desc'))
+    if 'user_name' in session:
+        return render_template("index.html", questions=questions, email=session['user_name'])
     return render_template("index.html", questions=questions)
 
 
@@ -16,7 +18,7 @@ def index():
 def registration():
     if request.method == 'POST':
         data_manager.add_user(request.form['user_name'], data_manager.hash_password(request.form['password']))
-        return redirect(url_for('show_list'))
+        return redirect(url_for('index'))
     return render_template("registration.html")
 
 
@@ -28,7 +30,6 @@ def login():
             error = 'Wrong password!'
         else:
             session['user_name'] = request.form['user_name']
-            session['password'] = data_manager.hash_password(request.form['password'])
             return redirect(url_for('show_list'))
     return render_template("login.html", error=error)
 
@@ -37,12 +38,16 @@ def login():
 def show_list():
     questions = data_manager.get_list(request.args.get('order_by', default='submission_time'),
                                       request.args.get('order_direction', default='desc'))
+    if 'user_name' in session:
+        return render_template("list.html", questions=questions, email=session['user_name'])
     return render_template("list.html", questions=questions)
 
 
 @app.route("/question/<question_id>")
 def question_page(question_id):
     question = data_manager.get_question_details(question_id)
+    if 'user_name' in session:
+        return render_template("question.html", question=question, email=session['user_name'])
     return render_template("question.html", question=question)
 
 
@@ -54,6 +59,8 @@ def add_form():
     if request.method == 'POST':
         new_q_id = data_manager.add_question(request.form['title'], request.form['message'])
         return redirect(url_for('question_page', question_id=new_q_id))
+    if 'user_name' in session:
+        return render_template("add-question.html", email=session['user_name'])
     return render_template("add-question.html")
 
 
@@ -64,6 +71,8 @@ def new_answer(question_id):
 
     question = data_manager.filter_by_id('quest', question_id)[0]
     question['answers'] = data_manager.filter_by_id('answ', question_id)
+    if 'user_name' in session:
+        return render_template("new-answer.html", question=question, email=session['user_name'])
     return render_template("new-answer.html", question=question)
 
 
@@ -74,6 +83,8 @@ def new_question_comment(question_id):
 
     question = data_manager.filter_by_id('quest', question_id)[0]
     question['comments'] = data_manager.filter_by_id('comm', question_id)
+    if 'user_name' in session:
+        return render_template("new-question-comment.html", question=question, email=session['user_name'])
     return render_template("new-question-comment.html", question=question)
 
 
@@ -83,6 +94,8 @@ def new_answer_comment(answer_id):
     if request.method == 'POST':
         data_manager.add_answer_comment(answer_id, request.form['message'])
     answer['comments'] = data_manager.filter_by_id('comm_by_answ', answer_id)
+    if 'user_name' in session:
+        return render_template("new-answer-comment.html", answer=answer, email=session['user_name'])
     return render_template("new-answer-comment.html", answer=answer)
 
 
@@ -110,6 +123,13 @@ def del_comment(comment_id):
 
     question_id = q_or_a[0]['question_id']
     return redirect(url_for('new_question_comment', question_id=question_id))
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    # flash("You are logged out")
+    session.pop('user_name', None)
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":

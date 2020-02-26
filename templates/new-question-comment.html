@@ -8,6 +8,9 @@
 
 <body>
     <h1>Comments</h1>
+    {% if email %}
+        <p class="left" id="in">USER: {{ email }} <a id="right" href="/logout">LOGOUT</a></p>
+    {% endif %}
     <h3>Question</h3>
     <br>
     <table>
@@ -60,10 +63,10 @@
     </table>
     {% endif %}
     <form action="/question/{{ question.get('id') }}/new-comment" method="post">
-    <p id="back">Comment:</p>
+    <p id="in">Comment:</p>
     <p><textarea placeholder="Your comment goes here" rows="8" cols="40" name="message" required="True"></textarea></p>
     <p><input type="submit" value="Submit"></p>
     </form>
-    <p><a id="back" href="/list">Back to Questions</a></p>
+    <p><a href="/list">Back to Questions</a></p>
 </body>
 </html>

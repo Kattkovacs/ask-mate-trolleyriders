@@ -6,7 +6,7 @@ body {
     overflow-x: hidden !important;
     -webkit-font-smoothing: antialiased;
     font-family: 'Ubuntu',Helvetica,arial,sans-serif;
-    color: midnightblue;
+    color: darkslategray;
     background-color: #ffc;
     margin: 20px;
     padding: 0;
@@ -69,7 +69,15 @@ h3 {
 }
 p {
     text-align: center;
-    color: midnightblue;
+}
+.button {
+    text-align: center;
+}
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
 }
 #intro {
     width: 36em;
@@ -80,13 +88,17 @@ p {
     font-weight: 400;
     color: #ffffcc;
 }
-#back {
-    color: #cccccc;
+#in {
+    color: yellowgreen;
+}
+#right {
+    text-align: right;
 }
 a {
     text-decoration: none;
-    color: midnightblue;
+    color: darkslategray;
     transition: all 0.5s;
+    background-color: #ffc;
 }
 a:focus {
     outline: 0;
