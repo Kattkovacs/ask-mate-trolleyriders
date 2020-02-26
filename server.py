@@ -61,7 +61,7 @@ def add_form():
         return redirect(url_for('question_page', question_id=new_q_id))
     if 'user_name' in session:
         return render_template("add-question.html", email=session['user_name'])
-    return render_template("add-question.html")
+    return redirect(url_for('login'))
 
 
 @app.route("/question/<question_id>/new-answer", methods=['GET', 'POST'])
@@ -73,7 +73,7 @@ def new_answer(question_id):
     question['answers'] = data_manager.filter_by_id('answ', question_id)
     if 'user_name' in session:
         return render_template("new-answer.html", question=question, email=session['user_name'])
-    return render_template("new-answer.html", question=question)
+    return redirect(url_for('login'))
 
 
 @app.route("/question/<question_id>/new-comment", methods=['GET', 'POST'])
@@ -85,7 +85,7 @@ def new_question_comment(question_id):
     question['comments'] = data_manager.filter_by_id('comm', question_id)
     if 'user_name' in session:
         return render_template("new-question-comment.html", question=question, email=session['user_name'])
-    return render_template("new-question-comment.html", question=question)
+    return redirect(url_for('login'))
 
 
 @app.route("/answer/<answer_id>/new-comment", methods=['GET', 'POST'])
@@ -96,33 +96,39 @@ def new_answer_comment(answer_id):
     answer['comments'] = data_manager.filter_by_id('comm_by_answ', answer_id)
     if 'user_name' in session:
         return render_template("new-answer-comment.html", answer=answer, email=session['user_name'])
-    return render_template("new-answer-comment.html", answer=answer)
+    return redirect(url_for('login'))
 
 
 @app.route("/question/<question_id>/delete")
 def delete(question_id):
-    data_manager.delete(question_id)
-    return redirect(url_for('show_list'))
+    if 'user_name' in session:
+        data_manager.delete(question_id)
+        return redirect(url_for('show_list'))
+    return redirect(url_for('login'))
 
 
 @app.route("/answer/<answer_id>/delete")
 def del_answer(answer_id):
-    question_id = data_manager.get_answer_question_id(answer_id)['question_id']
-    data_manager.del_answer(answer_id)
-    return redirect(url_for('question_page', question_id=question_id))
+    if 'user_name' in session:
+        question_id = data_manager.get_answer_question_id(answer_id)['question_id']
+        data_manager.del_answer(answer_id)
+        return redirect(url_for('question_page', question_id=question_id))
+    return redirect(url_for('login'))
 
 
 @app.route("/comments/<comment_id>/delete")
 def del_comment(comment_id):
-    q_or_a = data_manager.select_qa(comment_id)
-    data_manager.del_comment(comment_id)
+    if 'user_name' in session:
+        q_or_a = data_manager.select_qa(comment_id)
+        data_manager.del_comment(comment_id)
 
-    if q_or_a[0]['question_id'] is None:
-        answer_id = q_or_a[0]['answer_id']
-        return redirect(url_for('new_answer_comment', answer_id=answer_id))
+        if q_or_a[0]['question_id'] is None:
+            answer_id = q_or_a[0]['answer_id']
+            return redirect(url_for('new_answer_comment', answer_id=answer_id))
 
-    question_id = q_or_a[0]['question_id']
-    return redirect(url_for('new_question_comment', question_id=question_id))
+        question_id = q_or_a[0]['question_id']
+        return redirect(url_for('new_question_comment', question_id=question_id))
+    return redirect(url_for('login'))
 
 @app.route('/logout')
 def logout():

@@ -10,16 +10,14 @@
     <h1>Ask Mate</h1>
     {% if email %}
         <br>
-{#        <form action="/logout" class="button">#}
-{#            <input type=submit value="User <{{ email }}> LogOut">#}
-{#        </form>#}
-        <p id="in">USER: {{ email }} <a href="/logout">LOGOUT</a></p>
-        <br>
-        <br>
+        <div id="textbox">
+        <p class="left" id="in">USER: {{ email }} </p><p class="right" id="in"><a href="/logout">LOGOUT</a></p>
+        </div>
+        <br><br>
     {% endif %}
     <h3 id="intro">WELCOME</h3>
     {% if not email %}
-        <p><a href="/login">LOGIN</a> / <a href="/registration">SIGN UP</a></p>
+        <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
     {% endif %}
     <br>
     {% for item in questions[:5] %}

@@ -74,10 +74,10 @@ p {
     text-align: center;
 }
 .left {
-    text-align: left;
+    float: left;
 }
 .right {
-    text-align: right;
+    float: right;
 }
 #intro {
     width: 36em;
@@ -89,10 +89,10 @@ p {
     color: #ffffcc;
 }
 #in {
-    color: yellowgreen;
-}
-#right {
-    text-align: right;
+    width: 18em;
+    margin: 0 auto;
+    color: darkslategray;
+    background-color: #ffc;
 }
 a {
     text-decoration: none;
