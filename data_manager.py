@@ -141,7 +141,7 @@ def add_user(cursor: RealDictCursor, user_name, password):
 def add_question(cursor: RealDictCursor, title, message, user):
     query = """
             INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id)
-            VALUES (date_trunc('minute', now()), 0, 0, %(title)s, %(msg)s, 'none', %(uid)s)
+            VALUES (date_trunc('minute', now()), 0, 0, %(title)s, %(msg)s, NULL, %(uid)s)
             RETURNING id;
             """
     cursor.execute(query, {'title': title, 'msg': message, 'uid': user})
@@ -153,7 +153,7 @@ def add_question(cursor: RealDictCursor, title, message, user):
 def add_answer(cursor: RealDictCursor, question_id, message, user):
     query = """
             INSERT INTO answer (submission_time, vote_number, question_id, message, image, user_id)
-            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, 'none', %(uid)s);
+            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, NULL, %(uid)s);
             """
     cursor.execute(query, {'q_id': question_id, 'msg': message, 'uid': user})
 

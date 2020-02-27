@@ -5,7 +5,6 @@
     <title>Ask Mate - Users</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-
 <body>
     {% if email %}
         <div id="textbox">
@@ -21,12 +20,12 @@
     <table>
         <thead>
         <tr>
-            <th>registration date<a href="/users?order_by=registration_date&order_direction=asc">∧</a><a href="/users?order_by=registration_date&order_direction=desc">∨</a></th>
-            <th>user name<a href="/users?order_by=user_name&order_direction=asc">∧</a><a href="/users?order_by=user_name&order_direction=desc">∨</a></th>
-            <th>count of asked questions<a href="/users?order_by=count_of_asked_questions&order_direction=asc">∧</a><a href="/users?order_by=count_of_asked_questions&order_direction=desc">∨</a></th>
-            <th>count of answers<a href="/users?order_by=count_of_answers&order_direction=asc">∧</a><a href="/users?order_by=count_of_answers&order_direction=desc">∨</a></th>
-            <th>count of comments<a href="/users?order_by=count_of_comments&order_direction=asc">∧</a><a href="/users?order_by=count_of_comments&order_direction=desc">∨</a></th>
-            <th>reputation<a href="/users?order_by=reputation&order_direction=asc">∧</a><a href="/users?order_by=reputation&order_direction=desc">∨</a></th>
+            <th>registration date<a class="arrow" href="/users?order_by=registration_date&order_direction=asc">∧</a><a class="arrow" href="/users?order_by=registration_date&order_direction=desc">∨</a></th>
+            <th>user name<a class="arrow" href="/users?order_by=user_name&order_direction=asc">∧</a><a class="arrow" href="/users?order_by=user_name&order_direction=desc">∨</a></th>
+            <th>asked questions<a class="arrow" href="/users?order_by=count_of_asked_questions&order_direction=asc">∧</a><a class="arrow" href="/users?order_by=count_of_asked_questions&order_direction=desc">∨</a></th>
+            <th>answers<a class="arrow" href="/users?order_by=count_of_answers&order_direction=asc">∧</a><a class="arrow" href="/users?order_by=count_of_answers&order_direction=desc">∨</a></th>
+            <th>comments<a class="arrow" href="/users?order_by=count_of_comments&order_direction=asc">∧</a><a class="arrow" href="/users?order_by=count_of_comments&order_direction=desc">∨</a></th>
+            <th>reputation<a class="arrow" href="/users?order_by=reputation&order_direction=asc">∧</a><a class="arrow" href="/users?order_by=reputation&order_direction=desc">∨</a></th>
             <th>image</th>
         </tr>
         </thead>

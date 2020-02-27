@@ -34,9 +34,9 @@
         </thead>
         <tbody>
         <tr>
-            <td>{{ question.get('submission_time') }}</td>
-            <td>{{ question.get('title') }}</td>
-            <td>{{ question.get('message') }}</td>
+            <td><p>{{ question.get('submission_time') }}</p></td>
+            <td><p>{{ question.get('title') }}</p></td>
+            <td><p>{{ question.get('message') }}</p></td>
             <td>
                 {% if not question.get('image') %}
                     <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">
@@ -44,8 +44,8 @@
                     <img src="{{ url_for('static', filename='assets/{0}'.format(question.get('image'))) }}" width="100" height="100">
                 {% endif %}
             </td>
-            <td><p>{{ question.get('view_number') }}</p></td>
-            <td><p>{{ question.get('vote_number') }}</p></td>
+            <td><p id="al-right">{{ question.get('view_number') }}</p></td>
+            <td><p id="al-right">{{ question.get('vote_number') }}</p></td>
             <td><form action="/question/{{ question.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         </tbody>
@@ -66,9 +66,9 @@
         <tbody>
         {% for item in question['comments'] %}
         <tr>
-            <td>{{ item.get('submission_time') }}</td>
-            <td>{{ item.get('message') }}</td>
-            <td>{{ item.get('edited_count') }}</td>
+            <td><p>{{ item.get('submission_time') }}</p></td>
+            <td><p>{{ item.get('message') }}</p></td>
+            <td><p id="al-right">{{ item.get('edited_count') }}</p></td>
             <td><form action="/comments/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         {% endfor %}
