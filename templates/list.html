@@ -42,14 +42,12 @@
             <td><form action="/question/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>
         {% endfor %}
-        {% if email %}
-        <br>
-        <p><a href="/users">All users</a></p>
-        <p><a href="/user/<user_id>">Profile</a></p>
-        <br>
-    {% endif %}
         </tbody>
     </table><br>
-    <form action="/add-question"><p><input type="submit" value="New Question"></p></form>
+    {% if email %}
+        <p id="in" class="left"><a href="/users">All users</a></p>
+        <p id="in" class="right"><a href="/user/<user_id>">Profile</a></p>
+        <form action="/add-question"><p><input type="submit" value="New Question"></p></form>
+    {% endif %}
 </body>
 </html>

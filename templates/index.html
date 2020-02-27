@@ -9,13 +9,11 @@
 <body>
     <h1>Ask Mate</h1>
     {% if email %}
-        <br>
         <div id="textbox">
         <p class="left" id="in">{{ email }}</p><p class="right" id="in"><a href="/logout">LOGOUT</a></p>
         </div>
-        <br><br>
     {% endif %}
-    <h3 id="intro">WELCOME</h3>
+    <h3>WELCOME</h3>
     {% if not email %}
         <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
     {% endif %}

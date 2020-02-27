@@ -59,13 +59,11 @@ h1 {
 h3 {
     font-family: 'Lekton', sans-serif;
     text-align: center;
-    color: white;
+    color: #ffffcc;
     background-color: green;
-    font-size: 1.5em;
-    margin: 0;
-    padding: 2px;
-    padding-left: 14px;
+    font-size: 2em;
     opacity: .8;
+    margin: 0px 300px;
 }
 p {
     text-align: center;
