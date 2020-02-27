@@ -68,7 +68,7 @@ def add_form():
 @app.route("/question/<question_id>/new-answer", methods=['GET', 'POST'])
 def new_answer(question_id):
     if request.method == 'POST':
-        data_manager.add_answer(question_id, request.form['message'])
+        data_manager.add_answer(question_id, request.form['message'], data_manager.get_user_id(session['user_name'])[0]['id'])
 
     question = data_manager.filter_by_id('quest', question_id)[0]
     question['answers'] = data_manager.filter_by_id('answ', question_id)
@@ -80,7 +80,7 @@ def new_answer(question_id):
 @app.route("/question/<question_id>/new-comment", methods=['GET', 'POST'])
 def new_question_comment(question_id):
     if request.method == 'POST':
-        data_manager.add_question_comment(question_id, request.form['message'])
+        data_manager.add_question_comment(question_id, request.form['message'], data_manager.get_user_id(session['user_name'])[0]['id'])
 
     question = data_manager.filter_by_id('quest', question_id)[0]
     question['comments'] = data_manager.filter_by_id('comm', question_id)
@@ -93,7 +93,7 @@ def new_question_comment(question_id):
 def new_answer_comment(answer_id):
     answer = data_manager.filter_by_id('answ_by_id', answer_id)[0]
     if request.method == 'POST':
-        data_manager.add_answer_comment(answer_id, request.form['message'])
+        data_manager.add_answer_comment(answer_id, request.form['message'], data_manager.get_user_id(session['user_name'])[0]['id'])
     answer['comments'] = data_manager.filter_by_id('comm_by_answ', answer_id)
     if 'user_name' in session:
         return render_template("new-answer-comment.html", answer=answer, email=session['user_name'])

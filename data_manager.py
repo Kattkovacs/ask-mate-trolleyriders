@@ -147,30 +147,30 @@ def add_question(cursor: RealDictCursor, title, message, user):
 
 
 @connection.connection_handler
-def add_answer(cursor: RealDictCursor, question_id, message):
+def add_answer(cursor: RealDictCursor, question_id, message, user):
     query = """
-            INSERT INTO answer (submission_time, vote_number, question_id, message, image)
-            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, 'none');
+            INSERT INTO answer (submission_time, vote_number, question_id, message, image, user_id)
+            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, 'none', %(uid)s);
             """
-    cursor.execute(query, {'q_id': question_id, 'msg': message})
+    cursor.execute(query, {'q_id': question_id, 'msg': message, 'uid': user})
 
 
 @connection.connection_handler
-def add_question_comment(cursor: RealDictCursor, question_id, message):
+def add_question_comment(cursor: RealDictCursor, question_id, message, user):
     query = """
-            INSERT INTO comment (submission_time, edited_count, question_id, message)
-            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s);
+            INSERT INTO comment (submission_time, edited_count, question_id, message, user_id)
+            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, %(uid)s);
             """
-    cursor.execute(query, {'q_id': question_id, 'msg': message})
+    cursor.execute(query, {'q_id': question_id, 'msg': message, 'uid': user})
 
 
 @connection.connection_handler
-def add_answer_comment(cursor: RealDictCursor, answer_id, message):
+def add_answer_comment(cursor: RealDictCursor, answer_id, message, user):
     query = """
-            INSERT INTO comment (submission_time, edited_count, answer_id, message)
-            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s);
+            INSERT INTO comment (submission_time, edited_count, answer_id, message, user_id)
+            VALUES (date_trunc('minute', now()), 0, %(q_id)s, %(msg)s, %(uid)s);
             """
-    cursor.execute(query, {'q_id': answer_id, 'msg': message})
+    cursor.execute(query, {'q_id': answer_id, 'msg': message, 'uid': user})
 
 
 @connection.connection_handler
@@ -191,25 +191,25 @@ def get_question_details(question_id):
 
 
 @connection.connection_handler
-def get_user_id(cursor: RealDictCursor, un):
+def get_user_id(cursor: RealDictCursor, uid):
     query = """
             SELECT id
             FROM user_data
             WHERE user_data.user_name = %(us_nam)s;
             """
-    cursor.execute(query, {'us_nam': un})
+    cursor.execute(query, {'us_nam': uid})
     return cursor.fetchall()
 
 
-@connection.connection_handler
-def get_answer_id(cursor: RealDictCursor, qid):
-    query = """
-            SELECT id
-            FROM answer
-            WHERE answer.question_id = %(q_id)s;
-            """
-    cursor.execute(query, {'q_id': qid})
-    return cursor.fetchall()
+# @connection.connection_handler
+# def get_answer_id(cursor: RealDictCursor, qid):
+#     query = """
+#             SELECT id
+#             FROM answer
+#             WHERE answer.question_id = %(q_id)s;
+#             """
+#     cursor.execute(query, {'q_id': qid})
+#     return cursor.fetchall()
 
 
 @connection.connection_handler
@@ -279,13 +279,6 @@ def user_profile_list(cursor: RealDictCursor) -> list:
         """
     cursor.execute(query)
     return cursor.fetchall()
-
-
-def get_user_id():
-    user_data_lst = user_profile_list()
-    if session['user_name'] == user_data_lst['user_name']:
-        user_id = user_data_lst['id']
-    return user_id
 
 
 @connection.connection_handler
