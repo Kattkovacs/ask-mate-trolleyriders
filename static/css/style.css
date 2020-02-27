@@ -81,6 +81,11 @@ p {
     width:50%;
     text-align:right;
 }
+.error {
+    font-size: 1.5em;
+    margin: 0 auto;
+    color: orangered;
+}
 #intro {
     width: 36em;
     margin: 0 auto;

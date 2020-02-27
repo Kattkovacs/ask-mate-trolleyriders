@@ -129,7 +129,7 @@ def filter_by_id(cursor: RealDictCursor, table, question_id):
 def add_user(cursor: RealDictCursor, user_name, password):
     query = """
             INSERT INTO user_data (user_name, password, registration_date, count_of_asked_questions, count_of_answers, count_of_comments, reputation, image)
-            VALUES (%(user_name)s, %(password)s, date_trunc('minute', now()), 0, 0, 0, 0, NULL)
+            VALUES (%(user_name)s, %(password)s, date_trunc('minute', now()), NULL)
             RETURNING id;
             """
     cursor.execute(query, {'user_name': user_name, 'password': password})

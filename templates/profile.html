@@ -36,10 +36,10 @@
         <tr>
             <td>{{ user_by_id.get('registration_date') }}</td>
             <td>{{ user_by_id.get('user_name') }}</td>
-            <td>{{ user_by_id.get('count_of_asked_questions') }}</td>
-            <td>{{ user_by_id.get('count_of_answers') }}</td>
-            <td>{{ user_by_id.get('count_of_comments') }}</td>
-            <td>{{ user_by_id.get('reputation') }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
                 {% if not user_by_id.get('image') %}
                     <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">

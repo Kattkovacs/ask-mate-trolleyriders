@@ -28,7 +28,7 @@ def login():
     if request.method == 'POST':
         if not data_manager.users(request.form['user_name']) or not data_manager.verify_password(
                 request.form['password'], data_manager.passwords(request.form['user_name'])):
-            error = 'Wrong password!'
+            error = 'Invalid E-mail or Password!'
         else:
             session['user_name'] = request.form['user_name']
             return redirect(url_for('show_list'))
