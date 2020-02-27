@@ -293,17 +293,17 @@ def filter_by_user_id(cursor: RealDictCursor, table, user_id):
     return cursor.fetchall()
 
 @connection.connection_handler
-def filter_by_user_id(cursor: RealDictCursor, table, user_id):
+def filter_by_user_name(cursor: RealDictCursor, table, user_name):
     if table == 'us':
         query = """
                 SELECT *
                 FROM user_data
-                WHERE user_data.id = %(u_id)s
+                WHERE user_data.user_name = %(uid)s
                 """
-        cursor.execute(query, {'u_id': user_id})
+        cursor.execute(query, {'uid': user_name})
     return cursor.fetchall()
 
 
-def get_user_details(user_id):
-    user_by_id = filter_by_user_id('us', user_id)[0]
+def get_user_details(user_name):
+    user_by_id = filter_by_user_name('us', user_name)[0]
     return user_by_id
