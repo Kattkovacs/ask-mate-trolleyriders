@@ -33,7 +33,13 @@
             <td>{{ question.get('submission_time') }}</td>
             <td>{{ question.get('title') }}</td>
             <td>{{ question.get('message') }}</td>
-            <td>{{ question.get('image') }}</td>
+            <td>
+                {% if question.get('image') == 'none' %}
+                    <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">
+                {% else %}
+                    <img src="{{ url_for('static', filename='assets/{0}'.format(question.get('image'))) }}" width="100" height="100">
+                {% endif %}
+            </td>
             <td><p>{{ question.get('view_number') }}</p></td>
             <td><p>{{ question.get('vote_number') }}</p></td>
             <td><form action="/question/{{ question.get('id') }}/delete"><input type="submit" value="Delete"></form></td>

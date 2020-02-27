@@ -30,7 +30,13 @@
         <tr>
             <td>{{ answer.get('submission_time') }}</td>
             <td>{{ answer.get('message') }}</td>
-            <td>{{ answer.get('image') }}</td>
+            <td>
+                {% if answer.get('image') == 'none' %}
+                    <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">
+                {% else %}
+                    <img src="{{ url_for('static', filename='assets/{0}'.format(answer.get('image'))) }}" width="100" height="100">
+                {% endif %}
+            </td>
             <td>{{ answer.get('vote_number') }}</td>
             <td><form action="/answer/{{ answer.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
         </tr>

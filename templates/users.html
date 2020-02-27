@@ -32,7 +32,13 @@
             <td><a href="/user_data/{{ item.get('id') }}">{{ item.get('count_of_answers') }}</a></td>
             <td><a href="/user_data/{{ item.get('id') }}">{{ item.get('count_of_comments') }}</a></td>
             <td><a href="/user_data/{{ item.get('id') }}">{{ item.get('reputation') }}</a></td>
-            <td><a href="/user_data/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
+            <td><a href="/user_data/{{ item.get('id') }}">
+                {% if item.get('image') == 'none' %}
+                    <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">
+                {% else %}
+                    <img src="{{ url_for('static', filename='assets/{0}'.format(item.get('image'))) }}" width="100" height="100">
+                {% endif %}
+            </a></td>
             <td><form action="/user/{{ item.get('id') }}"><input type="submit" value="Profile"></form></td>
         </tr>
         {% endfor %}
