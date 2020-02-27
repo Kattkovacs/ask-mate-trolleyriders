@@ -7,28 +7,26 @@
 </head>
 
 <body>
-    <h1>Questions</h1>
     {% if email %}
         <div id="textbox">
         <p class="left" id="in">{{ email }}</p><p class="right" id="in"><a href="/logout">LOGOUT</a></p>
         </div>
-        <br><br>
     {% endif %}
     {% if not email %}
         <div id="textbox">
         <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
         </div>
-        <br><br>
     {% endif %}
+    <h1>Questions</h1>
     <table>
         <thead>
         <tr>
-            <th>time<a href="/list?order_by=submission_time&order_direction=asc">∧</a><a href="/list?order_by=submission_time&order_direction=desc">∨</a></th>
-            <th>title<a href="/list?order_by=title&order_direction=asc">∧</a><a href="/list?order_by=title&order_direction=desc">∨</a></th>
-            <th>message<a href="/list?order_by=message&order_direction=asc">∧</a><a href="/list?order_by=message&order_direction=desc">∨</a></th>
+            <th>time<a class="arrow" href="/list?order_by=submission_time&order_direction=asc">∧</a><a class="arrow" href="/list?order_by=submission_time&order_direction=desc">∨</a></th>
+            <th>title<a class="arrow" href="/list?order_by=title&order_direction=asc">∧</a><a class="arrow" href="/list?order_by=title&order_direction=desc">∨</a></th>
+            <th>message<a class="arrow" href="/list?order_by=message&order_direction=asc">∧</a><a class="arrow" href="/list?order_by=message&order_direction=desc">∨</a></th>
             <th>image</th>
-            <th>views<a href="/list?order_by=view_number&order_direction=asc">∧</a><a href="/list?order_by=view_number&order_direction=desc">∨</a></th>
-            <th>votes<a href="/list?order_by=vote_number&order_direction=asc">∧</a><a href="/list?order_by=vote_number&order_direction=desc">∨</a></th>
+            <th>views<a class="arrow" href="/list?order_by=view_number&order_direction=asc">∧</a><a class="arrow" href="/list?order_by=view_number&order_direction=desc">∨</a></th>
+            <th>votes<a class="arrow" href="/list?order_by=vote_number&order_direction=asc">∧</a><a class="arrow" href="/list?order_by=vote_number&order_direction=desc">∨</a></th>
             <th>answer</th>
             <th>comment</th>
             <th>delete</th>
@@ -57,7 +55,7 @@
         </tbody>
     </table><br>
     {% if email %}
-        <p id="in" class="left"><a href="/users">All users</a></p>
+        <p id="in" class="left"><a href="/users">Users list</a></p>
         <p id="in" class="right"><a href="/user/{{ user_id }}">Profile</a></p>
         <form action="/add-question"><p><input type="submit" value="New Question"></p></form>
     {% endif %}

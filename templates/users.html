@@ -7,19 +7,17 @@
 </head>
 
 <body>
-    <h1>Users</h1>
     {% if email %}
         <div id="textbox">
         <p class="left" id="in">{{ email }}</p><p class="right" id="in"><a href="/logout">LOGOUT</a></p>
         </div>
-        <br><br>
     {% endif %}
     {% if not email %}
         <div id="textbox">
         <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
         </div>
-        <br><br>
     {% endif %}
+    <h1>Users</h1>
     <table>
         <thead>
         <tr>
@@ -53,6 +51,6 @@
         {% endfor %}
         </tbody>
     </table><br>
-    <p><a href="/list">Back to Questions</a></p>
+    <p id="in"><a href="/list">Back to Questions</a></p>
 </body>
 </html>

@@ -7,18 +7,18 @@
 </head>
 
 <body>
-    <h1>Ask Mate</h1>
     {% if email %}
         <div id="textbox">
         <p class="left" id="in">{{ email }}</p><p class="right" id="in"><a href="/logout">LOGOUT</a></p>
         </div>
     {% endif %}
-    <h3>WELCOME</h3>
     {% if not email %}
         <div id="textbox">
         <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
         </div>
     {% endif %}
+    <h1>Ask Mate</h1>
+    <h3>WELCOME</h3>
     <br>
     {% for item in questions[:5] %}
         <p id="intro">"{{ item.get('message') }}"</p><br>

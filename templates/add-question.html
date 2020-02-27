@@ -6,20 +6,17 @@
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>Add question form</h1>
-    <br>
     {% if email %}
         <div id="textbox">
         <p class="left" id="in">{{ email }}</p><p class="right" id="in"><a href="/logout">LOGOUT</a></p>
         </div>
-        <br><br>
     {% endif %}
     {% if not email %}
         <div id="textbox">
         <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
         </div>
-        <br><br>
     {% endif %}
+    <h1>New question</h1>
     <form action="/add-question" method="post">
         <p id="back">Title:</p>
         <p><textarea placeholder="Enter title" rows="2" cols="40" name="title" required="True"></textarea></p>
@@ -27,6 +24,6 @@
         <p><textarea placeholder="Your question goes here" rows="16" cols="40" name="message" required="True"></textarea></p>
         <p><input type="submit" value="Submit"></p>
     </form>
-    <p><a href="/list">Back</a></p>
+    <p id="in"><a href="/list">Back</a></p>
 </body>
 </html>

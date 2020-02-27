@@ -6,8 +6,8 @@ body {
     overflow-x: hidden !important;
     -webkit-font-smoothing: antialiased;
     font-family: 'Ubuntu',Helvetica,arial,sans-serif;
-    color: black;
-    background-color: #ccc;
+    color: #ccc;
+    background-color: #222;
     margin: 20px;
     padding: 0;
     background-image: url("https://wallpaperaccess.com/full/13327.jpg");
@@ -46,7 +46,7 @@ h1 {
     color: #ffc;
     background-color: #900;
     font-size: 3em;
-    margin: 0 0 7px;
+    margin: 0 300px 7px;
     padding: 2px;
     font-style: italic;
     text-align: center;
@@ -101,11 +101,14 @@ p {
     margin: 0 auto;
     color: #ccc;
 }
+.arrow {
+    color: #111;
+    transition: all 0.5s;
+}
 a {
     text-decoration: none;
-    color: black;
+    color: #ccc;
     transition: all 0.5s;
-    background-color: #ccc;
 }
 a:focus {
     outline: 0;
@@ -126,6 +129,7 @@ table {
     border: 2px solid black;
     margin: 0 auto;
     background-color: #ccc;
+    opacity: .8;
 }
 th {
     border: 1px solid black;
@@ -134,9 +138,9 @@ th {
 }
 td {
     border: 1px solid black;
-    background-color: #ccc;
-    color: black;
-    opacity: .9;
+    background-color: #222;
+    color: #ccc;
+    padding: 10px;
 }
 thead {
     border: 1px solid black;
