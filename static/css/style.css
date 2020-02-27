@@ -46,7 +46,7 @@ h1 {
     color: #ffc;
     background-color: #710000;
     font-size: 3em;
-    margin: 0 180px 5px;
+    margin: 0 250px 5px;
     padding-bottom: 20px;
     font-style: italic;
     text-align: center;
@@ -64,7 +64,7 @@ h3 {
     background-color: #003200;
     font-size: 2em;
     opacity: .8;
-    margin: 0 180px;
+    margin: 0 250px;
     border-style: solid;
     border-radius: 15px;
     border-color: #005800;
@@ -163,5 +163,5 @@ input {
 }
 input:hover,
 input:focus {
-    color: #1bdc38;
+    color: #005800;
 }

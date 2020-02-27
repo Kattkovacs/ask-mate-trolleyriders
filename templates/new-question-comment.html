@@ -46,7 +46,11 @@
             </td>
             <td><p id="al-right">{{ question.get('view_number') }}</p></td>
             <td><p id="al-right">{{ question.get('vote_number') }}</p></td>
-            <td><form action="/question/{{ question.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
+            <td>
+                {% if question.get('user_id') == user_id %}
+                <form action="/question/{{ question.get('id') }}/delete"><input type="submit" value="Delete"></form>
+                {% endif %}
+            </td>
         </tr>
         </tbody>
     </table>
@@ -69,7 +73,11 @@
             <td><p>{{ item.get('submission_time') }}</p></td>
             <td><p>{{ item.get('message') }}</p></td>
             <td><p id="al-right">{{ item.get('edited_count') }}</p></td>
-            <td><form action="/comments/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form></td>
+            <td>
+                {% if item.get('user_id') == user_id %}
+                <form action="/comments/{{ item.get('id') }}/delete"><input type="submit" value="Delete"></form>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         </tbody>

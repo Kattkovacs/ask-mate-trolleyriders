@@ -49,7 +49,8 @@ def show_list():
 def question_page(question_id):
     question = data_manager.get_question_details(question_id)
     if 'user_name' in session:
-        return render_template("question.html", question=question, email=session['user_name'])
+        user_id = data_manager.get_user_id(session['user_name'])[0]['id']
+        return render_template("question.html", question=question, email=session['user_name'], user_id=user_id)
     return render_template("question.html", question=question)
 
 
@@ -74,7 +75,8 @@ def new_answer(question_id):
     question = data_manager.filter_by_id('quest', question_id)[0]
     question['answers'] = data_manager.filter_by_id('answ', question_id)
     if 'user_name' in session:
-        return render_template("new-answer.html", question=question, email=session['user_name'])
+        user_id = data_manager.get_user_id(session['user_name'])[0]['id']
+        return render_template("new-answer.html", question=question, email=session['user_name'], user_id=user_id)
     return redirect(url_for('login'))
 
 
@@ -86,7 +88,8 @@ def new_question_comment(question_id):
     question = data_manager.filter_by_id('quest', question_id)[0]
     question['comments'] = data_manager.filter_by_id('comm', question_id)
     if 'user_name' in session:
-        return render_template("new-question-comment.html", question=question, email=session['user_name'])
+        user_id = data_manager.get_user_id(session['user_name'])[0]['id']
+        return render_template("new-question-comment.html", question=question, email=session['user_name'], user_id=user_id)
     return redirect(url_for('login'))
 
 
@@ -97,7 +100,8 @@ def new_answer_comment(answer_id):
         data_manager.add_answer_comment(answer_id, request.form['message'], data_manager.get_user_id(session['user_name'])[0]['id'])
     answer['comments'] = data_manager.filter_by_id('comm_by_answ', answer_id)
     if 'user_name' in session:
-        return render_template("new-answer-comment.html", answer=answer, email=session['user_name'])
+        user_id = data_manager.get_user_id(session['user_name'])[0]['id']
+        return render_template("new-answer-comment.html", answer=answer, email=session['user_name'], user_id=user_id)
     return redirect(url_for('login'))
 
 
