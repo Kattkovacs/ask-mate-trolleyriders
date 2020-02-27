@@ -6,6 +6,7 @@ from typing import List, Dict
 from psycopg2 import sql
 from psycopg2.extras import RealDictCursor
 import bcrypt
+import server
 
 
 def hash_password(plain_text_password):
@@ -41,6 +42,8 @@ def passwords(cursor: RealDictCursor, email):
             """
     cursor.execute(query, {'email': email})
     result = cursor.fetchone()
+    if not result:
+        return hash_password('_5#y2L"F4Q8z\n\xec]/')
     return result['password']
 
 
@@ -126,7 +129,7 @@ def filter_by_id(cursor: RealDictCursor, table, question_id):
 def add_user(cursor: RealDictCursor, user_name, password):
     query = """
             INSERT INTO user_data (user_name, password, registration_date, count_of_asked_questions, count_of_answers, count_of_comments, reputation, image)
-            VALUES (%(user_name)s, %(password)s, date_trunc('minute', now()), 0, 0, 0, 0, 'none')
+            VALUES (%(user_name)s, %(password)s, date_trunc('minute', now()), 0, 0, 0, 0, NULL)
             RETURNING id;
             """
     cursor.execute(query, {'user_name': user_name, 'password': password})
@@ -292,18 +295,15 @@ def filter_by_user_id(cursor: RealDictCursor, table, user_id):
         cursor.execute(query, {'u_id': user_id})
     return cursor.fetchall()
 
+
 @connection.connection_handler
-def filter_by_user_name(cursor: RealDictCursor, table, user_name):
-    if table == 'us':
-        query = """
-                SELECT *
-                FROM user_data
-                WHERE user_data.user_name = %(uid)s
-                """
-        cursor.execute(query, {'uid': user_name})
+def get_user_details(cursor: RealDictCursor, user_id):
+    query = """
+            SELECT *
+            FROM user_data
+            WHERE user_data.id = %(uid)s
+            """
+    cursor.execute(query, {'uid': user_id})
     return cursor.fetchall()
 
 
-def get_user_details(user_name):
-    user_by_id = filter_by_user_name('us', user_name)[0]
-    return user_by_id

@@ -14,6 +14,12 @@
         </div>
         <br><br>
     {% endif %}
+    {% if not email %}
+        <div id="textbox">
+        <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
+        </div>
+        <br><br>
+    {% endif %}
     <form action="/add-question" method="post">
         <p id="back">Title:</p>
         <p><textarea placeholder="Enter title" rows="2" cols="40" name="title" required="True"></textarea></p>

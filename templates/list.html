@@ -14,6 +14,12 @@
         </div>
         <br><br>
     {% endif %}
+    {% if not email %}
+        <div id="textbox">
+        <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
+        </div>
+        <br><br>
+    {% endif %}
     <table>
         <thead>
         <tr>
@@ -34,7 +40,13 @@
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('submission_time') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('title') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('message') }}</a></td>
-            <td><a href="/question/{{ item.get('id') }}">{{ item.get('image') }}</a></td>
+            <td>
+                {% if not item.get('image') %}
+                    <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">
+                {% else %}
+                    <img src="{{ url_for('static', filename='assets/{0}'.format(item.get('image'))) }}" width="100" height="100">
+                {% endif %}
+            </td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('view_number') }}</a></td>
             <td><a href="/question/{{ item.get('id') }}">{{ item.get('vote_number') }}</a></td>
             <td><form action="/question/{{ item.get('id') }}/new-answer"><input type="submit" value="Answer"></form></td>
@@ -46,7 +58,7 @@
     </table><br>
     {% if email %}
         <p id="in" class="left"><a href="/users">All users</a></p>
-        <p id="in" class="right"><a href="/user/<user_id>">Profile</a></p>
+        <p id="in" class="right"><a href="/user/{{ user_id }}">Profile</a></p>
         <form action="/add-question"><p><input type="submit" value="New Question"></p></form>
     {% endif %}
 </body>

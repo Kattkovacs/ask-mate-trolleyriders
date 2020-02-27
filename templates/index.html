@@ -15,7 +15,9 @@
     {% endif %}
     <h3>WELCOME</h3>
     {% if not email %}
+        <div id="textbox">
         <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
+        </div>
     {% endif %}
     <br>
     {% for item in questions[:5] %}

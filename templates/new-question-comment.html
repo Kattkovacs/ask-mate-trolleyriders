@@ -14,6 +14,12 @@
         </div>
         <br><br>
     {% endif %}
+    {% if not email %}
+        <div id="textbox">
+        <p class="left" id="in"><a href="/login">LOGIN</a></p><p class="right" id="in"><a href="/registration">SIGN UP</a></p>
+        </div>
+        <br><br>
+    {% endif %}
     <h3>Question</h3>
     <br>
     <table>
@@ -34,7 +40,7 @@
             <td>{{ question.get('title') }}</td>
             <td>{{ question.get('message') }}</td>
             <td>
-                {% if question.get('image') == 'none' %}
+                {% if not question.get('image') %}
                     <img src="{{ url_for('static', filename='assets/no_image.png') }}" width="100" height="100">
                 {% else %}
                     <img src="{{ url_for('static', filename='assets/{0}'.format(question.get('image'))) }}" width="100" height="100">

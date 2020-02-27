@@ -40,8 +40,8 @@ def show_list():
     questions = data_manager.get_list(request.args.get('order_by', default='submission_time'),
                                       request.args.get('order_direction', default='desc'))
     if 'user_name' in session:
-        user_by_id = data_manager.get_user_details(session['user_name'])
-        return render_template("list.html", questions=questions, email=session['user_name'], user_by_id=user_by_id)
+        user_id = data_manager.get_user_id(session['user_name'])[0]['id']
+        return render_template("list.html", questions=questions, email=session['user_name'], user_id=user_id)
     return render_template("list.html", questions=questions)
 
 
@@ -152,7 +152,7 @@ def all_users():
 
 @app.route('/user/<user_id>')
 def user_profile(user_id):
-    user_by_id = data_manager.get_user_details(user_id)
+    user_by_id = data_manager.get_user_details(user_id)[0]
     if 'user_name' in session:
         return render_template("profile.html", user_by_id=user_by_id, email=session['user_name'])
     return redirect(url_for('index'))
