@@ -6,14 +6,15 @@
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-        <h1>Login</h1>
-        {% if error %}
-    <p class=error><strong>Error:</strong> {{ error }}</p>
-        {% endif %}
-        <form method="post">
-            <p><input name=user_name placeholder="email@email.com" required type=email value="{{ request.form.user_name }}"></p>
-            <p><input name=password placeholder="password" required type=password>
-            <p><input type=submit value=Login>
-        </form>
+    <h1>Login</h1>
+    <form method="post">
+        <p><input name=user_name placeholder="email@email.com" required type=email value="{{ request.form.user_name }}"></p>
+        <p><input name=password placeholder="password" required type=password>
+        <p><input type=submit value=Login>
+    </form>
+    {% if error %}
+<p class=error><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+    <p id="in"><a href="/list">Back</a></p>
 </body>
 </html>

@@ -160,8 +160,9 @@ thead {
 }
 input {
     font-weight: bold;
+    transition: all .1s;
 }
 input:hover,
 input:focus {
-    color: #005800;
+    filter: invert(100%);
 }

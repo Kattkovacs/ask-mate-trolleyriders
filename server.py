@@ -16,10 +16,14 @@ def index():
 
 @app.route("/registration", methods=['GET', 'POST'])
 def registration():
+    error = None
     if request.method == 'POST':
+        if data_manager.users(request.form['user_name']):
+            error = 'E-mail address already in use!'
+            return render_template("registration.html", error=error)
         data_manager.add_user(request.form['user_name'], data_manager.hash_password(request.form['password']))
         return redirect(url_for('index'))
-    return render_template("registration.html")
+    return render_template("registration.html", error=error)
 
 
 @app.route('/login', methods=['GET', 'POST'])
