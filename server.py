@@ -18,7 +18,7 @@ def index():
 def registration():
     error = None
     if request.method == 'POST':
-        if data_manager.users(request.form['user_name']):
+        if not data_manager.users(request.form['user_name'])[0]['case'] == 0:
             error = 'E-mail address already in use!'
             return render_template("registration.html", error=error)
         data_manager.add_user(request.form['user_name'], data_manager.hash_password(request.form['password']))
@@ -30,7 +30,7 @@ def registration():
 def login():
     error = None
     if request.method == 'POST':
-        if not data_manager.users(request.form['user_name']) or not data_manager.verify_password(
+        if data_manager.users(request.form['user_name'])[0]['case'] == 0 or not data_manager.verify_password(
                 request.form['password'], data_manager.passwords(request.form['user_name'])):
             error = 'Invalid E-mail or Password!'
         else:
